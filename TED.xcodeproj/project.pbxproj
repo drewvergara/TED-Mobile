@@ -24,6 +24,7 @@
 		353067F713233B0200CC6332 /* TED-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 353067F613233B0200CC6332 /* TED-bg.png */; };
 		358C37A81324BFD3007D7DAA /* featured-talk-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 358C37A71324BFD3007D7DAA /* featured-talk-bg.png */; };
 		35E55E4A1321D812009C228F /* OpenNC.m in Sources */ = {isa = PBXBuildFile; fileRef = 35E55E491321D812009C228F /* OpenNC.m */; };
+		35F977FF133D705F00ECCD65 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35F977FE133D705F00ECCD65 /* MediaPlayer.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +52,7 @@
 		358C37A71324BFD3007D7DAA /* featured-talk-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "featured-talk-bg.png"; sourceTree = SOURCE_ROOT; };
 		35E55E481321D812009C228F /* OpenNC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OpenNC.h; path = Classes/OpenNC.h; sourceTree = SOURCE_ROOT; };
 		35E55E491321D812009C228F /* OpenNC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OpenNC.m; path = Classes/OpenNC.m; sourceTree = SOURCE_ROOT; };
+		35F977FE133D705F00ECCD65 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		8D1107310486CEB800E47090 /* TED-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "TED-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -59,6 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				35F977FF133D705F00ECCD65 /* MediaPlayer.framework in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				2892E4100DC94CBA00A64D0F /* CoreGraphics.framework in Frameworks */,
@@ -123,6 +126,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				35F977FE133D705F00ECCD65 /* MediaPlayer.framework */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */,

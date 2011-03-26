@@ -8,14 +8,15 @@
 
 #import "RootViewController.h"
 #import "OpenNC.h"
-
+#import "TEDAppDelegate.h"
 
 @implementation RootViewController
 
 @synthesize overlayView, videoView, overlayBGImageView;
 @synthesize featuredTalk, talk1, talk2;
+@synthesize testMovie, scrollView;
 
-int counter = 0;
+int counter = 1;
 
 #pragma mark -
 #pragma mark View lifecycle
@@ -24,7 +25,7 @@ int counter = 0;
 - (void)viewDidLoad {
     [super viewDidLoad];
 	[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:NO];
-	self.navigationController.navigationBar.hidden = YES;
+	self.navigationController.navigationBar.hidden = NO;
 	
 	UIImageView *imgView;
 	imgView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"TED-logo-sm.png"]] autorelease];
@@ -35,49 +36,70 @@ int counter = 0;
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 
+	[self buildOverlay];
+    
+	//videoView = [[UIView alloc] init];
+	videoView.frame = CGRectMake(0, 80, videoView.frame.size.width, videoView.frame.size.height);
+	
+    scrollView.contentSize = CGSizeMake(videoView.frame.size.width, 900.0);
+	//[scrollView addSubview:mainGridView];
+
+    
+	[[OpenNC getInstance] getFeed:self callback:@selector(showResults:) parameters:nil];
+}
+
+- (void)buildOverlay
+{
 	overlayView.frame = CGRectMake(0, 0, 320, 480);	
-	[self.view addSubview:overlayView];
+	//[self.view addSubview:overlayView];
 	
 	UIImage* overlayBGImage = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"TED-logo" ofType:@"png"]];	
 	overlayBGImageView = [[UIImageView alloc] initWithImage:overlayBGImage];
 	overlayBGImageView.frame = CGRectMake(0, 0, 320, 480);
 	overlayBGImageView.center = CGPointMake(self.view.frame.size.width * 0.5, self.view.frame.size.height * 0.5 + 10);
 	[overlayBGImage release];
-	[self.overlayView addSubview:overlayBGImageView];
-	
-	//videoView = [[UIView alloc] init];
-	videoView.frame = CGRectMake(0, 120, videoView.frame.size.width, videoView.frame.size.height);
-	
-	[[OpenNC getInstance] getFeed:self callback:@selector(showResults:) parameters:nil];
+	[overlayView addSubview:overlayBGImageView];
+    
+	TEDAppDelegate *appdelegate = (TEDAppDelegate *)[[UIApplication sharedApplication] delegate];
+	[appdelegate addOverlay:overlayView];
+    
+    [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(removeOverlay) userInfo:nil repeats:NO];
 }
 
 - (void)removeOverlay
 {
+    TEDAppDelegate *appdelegate = (TEDAppDelegate *)[[UIApplication sharedApplication] delegate];
+	[appdelegate removeOverlay];
+
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:NO];
+    
+    
 	[UIView beginAnimations:@"removeOverlay" context:nil];
 	[UIView setAnimationDelay:0.1];
 	[UIView setAnimationDuration:0.75];
 	//[UIView setAnimationDelegate:self];
 	//[UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
 	
-	overlayView.alpha = 0.0;	
+	//overlayView.alpha = 0.0;	
 	videoView.alpha = 1.0;
 	
 	[UIView commitAnimations];
 	
 	[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:YES];
 
-	self.navigationController.navigationBar.hidden = NO;	
+	//self.navigationController.navigationBar.hidden = NO;
+     	
 }
 
 - (void)showResults:(NSArray *)data
 {
 	NSLog(@"connection ended");
-	NSLog(@"%@", data);
+	//NSLog(@"%@", data);
 			
-	for (int i = 0; i < 9; i++) {
+	for (int i = 0; i < 6; i++) {
 		NSDictionary *dataDic = [data objectAtIndex:i];
-		NSString *imgURL = [dataDic objectForKey:@"thumbnailURL"];
-
+		NSString *imgURL = [dataDic objectForKey:@"thumbnailURL"];        
+        
 		[[OpenNC getInstance] getImage:self callback:@selector(displayImage:) imageURL:imgURL context:nil];		
 	}
 	
@@ -88,7 +110,8 @@ int counter = 0;
 {
 	NSDictionary *dataDic1 = [data objectAtIndex:0];
 	NSString *imgURL1 = [dataDic1 objectForKey:@"overlayURL"];
-	NSString *titleText = [dataDic1 objectForKey:@"subtitle"];	
+	NSString *titleText = [dataDic1 objectForKey:@"subtitle"];
+    testMovie = (NSString *)[dataDic1 objectForKey:@"videoURL"];
 	[[OpenNC getInstance] getImage:self callback:@selector(displayMainImage:) imageURL:imgURL1 context:nil];
 	
 	UILabel *heading = [[UILabel alloc] initWithFrame:CGRectMake(15, 185, 290, 50)];
@@ -98,7 +121,7 @@ int counter = 0;
 	heading.backgroundColor = [UIColor clearColor];
 	heading.text = titleText;
 	heading.numberOfLines = 0;
-	[videoView addSubview:heading];
+	[scrollView addSubview:heading];
 	//heading.center = CGPointMake(dialogView.frame.size.width/2, 27.0f);
 	
 	[self.view addSubview:videoView];
@@ -108,23 +131,28 @@ int counter = 0;
 - (void)displayImage:(NSDictionary *)image {
 	[image retain];
 	
-	float overlayPointX = 0.0;
+	float overlayPointX = 10.0;
 	int overlayPointYMultiplier = counter;
 	
-	if (counter > 4) {
-		overlayPointX = 160.0;
-		overlayPointYMultiplier = counter - 5;
+	if ((counter % 2) == 0) {
+		overlayPointX = 162.0;
+		overlayPointYMultiplier = counter - 1;
 	}
 	
 	UIImage *fullImage = [image objectForKey:@"image"];
-
-	UIImageView *bgImageView = [[UIImageView alloc] initWithImage:fullImage];
-	bgImageView.frame = CGRectMake(overlayPointX, 120 * overlayPointYMultiplier, 160, 120);
-	[self.overlayView insertSubview:bgImageView atIndex:0];
+    
+	//UIImageView *videoButtonImage = [[UIImageView alloc] initWithImage:fullImage];
+    UIButton *videoButton = [UIButton buttonWithType:UIButtonTypeCustom];
+	videoButton.frame = CGRectMake(overlayPointX, 120 * overlayPointYMultiplier, 148.0, 111.0);
+	[videoButton setBackgroundImage:fullImage forState:UIControlStateNormal];
+	//[videoButton addTarget:self action:@selector(backToMainMenu:) forControlEvents:UIControlEventTouchUpInside];
+	[scrollView addSubview:videoButton];
+    
+	//[self.overlayView insertSubview:bgImageView atIndex:0];
 	
-	if (counter == 7) {
-		[NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(removeOverlay) userInfo:nil repeats:NO];
-	}
+//	if (counter == 7) {
+//		[NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(removeOverlay) userInfo:nil repeats:NO];
+//	}
 	
 	counter ++;
 	
@@ -138,14 +166,19 @@ int counter = 0;
 	
 	//UIImageView *bgImageView = [[UIImageView alloc] initWithImage:fullImage];
 	[featuredTalk setBackgroundImage:fullImage forState:UIControlStateNormal];
-	[talk1 setBackgroundImage:fullImage forState:UIControlStateNormal];
-	[talk2 setBackgroundImage:fullImage forState:UIControlStateNormal];
+	//[talk1 setBackgroundImage:fullImage forState:UIControlStateNormal];
+	//[talk2 setBackgroundImage:fullImage forState:UIControlStateNormal];
 	//bgImageView.frame = CGRectMake(10, 10, 300, 225);
 	//[videoView insertSubview:bgImageView atIndex:1];
 	
 	[image release];
 }
 
+- (IBAction)featuredTalk:(id)sender
+{
+	TEDAppDelegate *appdelegate = (TEDAppDelegate *)[[UIApplication sharedApplication] delegate];
+	[appdelegate prepMoviePlayer:testMovie];
+}
 
 /*
 - (void)viewWillAppear:(BOOL)animated {

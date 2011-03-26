@@ -19,7 +19,7 @@
 }
 
 - (id)initForFeed:(NSObject *)caller callback:(SEL)callback{
-	if (self = [super init])
+	if (self == [super init])
 	{
 		// Initialization code
 		requestor = caller;
@@ -61,8 +61,6 @@
 	if (error){
 		[dicResponse setObject:[NSString stringWithFormat:@"Error requesting saved rewards: %@", [error localizedDescription]] forKey:@"error"];
 	}else{
-		
-		
 		
 		BOOL success;
 		//NSURL *xmlURL = [NSURL fileURLWithPath:pathToFile];

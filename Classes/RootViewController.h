@@ -17,7 +17,10 @@
 	IBOutlet UIButton *featuredTalk;
 	IBOutlet UIButton *talk1;
 	IBOutlet UIButton *talk2;
-	
+    
+    IBOutlet UIScrollView *scrollView;
+    
+    NSString *testMovie;	
 }
 @property (nonatomic, retain) IBOutlet UIView *overlayView; 
 @property (nonatomic, retain) IBOutlet UIView *videoView;
@@ -25,6 +28,10 @@
 @property (nonatomic, retain) IBOutlet UIButton *featuredTalk;
 @property (nonatomic, retain) IBOutlet UIButton *talk1;
 @property (nonatomic, retain) IBOutlet UIButton *talk2;
+@property (nonatomic, retain) IBOutlet UIScrollView *scrollView;
+@property (nonatomic, retain) NSString *testMovie;
 
+- (void)buildOverlay;
 - (void)createTalkView:(NSArray *)data;
+- (IBAction)featuredTalk:(id)sender;
 @end

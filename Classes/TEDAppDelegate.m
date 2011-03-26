@@ -14,7 +14,7 @@
 
 @synthesize window;
 @synthesize navigationController;
-
+@synthesize introOverlay;
 
 #pragma mark -
 #pragma mark Application lifecycle
@@ -66,6 +66,72 @@
      Called when the application is about to terminate.
      See also applicationDidEnterBackground:.
      */
+}
+
+
+#pragma mark -
+#pragma mark Intro Overlay
+- (void)addOverlay:(UIView *)overlay
+{
+    introOverlay = overlay;
+    [self.window addSubview:introOverlay];
+}
+
+- (void)removeOverlay
+{
+//    [self.window addSubview:overlay];
+    [introOverlay removeFromSuperview];
+}
+
+
+#pragma mark -
+#pragma mark MoviePlayer
+
+- (void)prepMoviePlayer:(NSString *)movieName
+{
+	//NSString *moviePath = [[NSBundle mainBundle] pathForResource:@"LEDHeadlamps" ofType:@"mp4"];
+	NSBundle *bundle = [NSBundle mainBundle];
+	if (bundle) {		
+		NSString *moviePath = [bundle pathForResource:movieName ofType:@"mp4"];
+		NSLog(@"%@", movieName);
+		NSLog(@"%@", moviePath);
+		if (movieName){
+			
+            NSURL* videoURL = [NSURL URLWithString:movieName];
+			moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:videoURL];
+			[moviePlayer setFullscreen:YES];
+			moviePlayer.scalingMode = MPMovieScalingModeAspectFit;
+            
+			CGAffineTransform transform = CGAffineTransformMakeRotation(90 * (M_PI / 180));
+			moviePlayer.view.transform = transform;			
+			[moviePlayer.view setFrame:CGRectMake(0, 0, 320 , 480)];
+			
+			moviePlayer.controlStyle = MPMovieControlStyleFullscreen;
+			
+			moviePlayer.view.backgroundColor = [UIColor blackColor]; 
+			[self.window addSubview:moviePlayer.view];
+			
+			[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayerLoadStateChanged:) name:MPMoviePlayerLoadStateDidChangeNotification object:nil];
+			[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(movieDidFinish:) name:MPMoviePlayerPlaybackDidFinishNotification object:nil];
+		}
+	}
+}
+
+- (void)moviePlayerLoadStateChanged:(NSNotification *)notification
+{
+	if ([moviePlayer loadState] != MPMovieLoadStateUnknown) {		
+		[moviePlayer play];
+        [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationLandscapeRight];
+		[[NSNotificationCenter defaultCenter] removeObserver:self name:MPMoviePlayerLoadStateDidChangeNotification object:nil];
+	}		
+	
+}
+
+- (void)movieDidFinish:(NSNotification*)notification
+{
+	[moviePlayer.view removeFromSuperview];
+    [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationPortrait];
+	//[moviePlayer release];
 }
 
 
