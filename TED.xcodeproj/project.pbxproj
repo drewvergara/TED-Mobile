@@ -282,6 +282,36 @@
 			};
 			name = Release;
 		};
+		35987C0B13400DDE002AE7DE /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Andrew Vergara (G5J979H54E)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Andrew Vergara (G5J979H54E)";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				PROVISIONING_PROFILE = "77E3C7F1-65C0-4B24-AD56-45233D544E6F";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "77E3C7F1-65C0-4B24-AD56-45233D544E6F";
+				SDKROOT = iphoneos;
+			};
+			name = Development;
+		};
+		35987C0C13400DDE002AE7DE /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = TED_Prefix.pch;
+				INFOPLIST_FILE = "TED-Info.plist";
+				PRODUCT_NAME = TED;
+			};
+			name = Development;
+		};
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -316,6 +346,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1D6058940D05DD3E006BFB54 /* Debug */,
+				35987C0C13400DDE002AE7DE /* Development */,
 				1D6058950D05DD3E006BFB54 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -325,6 +356,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
+				35987C0B13400DDE002AE7DE /* Development */,
 				C01FCF5008A954540054247B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;

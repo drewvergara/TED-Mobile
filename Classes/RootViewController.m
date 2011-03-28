@@ -26,6 +26,8 @@ int counter = 1;
 - (void)viewDidLoad {
     [super viewDidLoad];
 	[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:NO];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent animated:YES];
+    
 	self.navigationController.navigationBar.hidden = NO;
 	
 	UIImageView *imgView;
@@ -68,8 +70,8 @@ int counter = 1;
 	[appdelegate removeOverlay];
 
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:NO];
-    
-    
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent animated:YES];
+        
 	[UIView beginAnimations:@"removeOverlay" context:nil];
 	[UIView setAnimationDelay:0.1];
 	[UIView setAnimationDuration:0.75];
@@ -81,6 +83,7 @@ int counter = 1;
 	[UIView commitAnimations];
 	
 	[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:YES];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent animated:YES];
 }
 
 - (void)showResults:(NSArray *)data
@@ -227,6 +230,7 @@ int counter = 1;
     [super viewWillAppear:animated];
 }
 */
+
 /*
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -243,13 +247,12 @@ int counter = 1;
 }
 */
 
-/*
+
  // Override to allow orientations other than the default portrait orientation.
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
 	// Return YES for supported orientations.
 	return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
- */
 
 #pragma mark -
 #pragma mark Memory management

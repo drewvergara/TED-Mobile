@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import <MediaPlayer/MediaPlayer.h>
 
+@class MPMoviePlayerController;
+
 @interface TEDAppDelegate : NSObject <UIApplicationDelegate> {
     
     UIWindow *window;

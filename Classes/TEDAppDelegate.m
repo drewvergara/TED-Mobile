@@ -103,7 +103,6 @@
 
 - (void)prepMoviePlayer:(NSString *)movieName
 {
-	//NSString *moviePath = [[NSBundle mainBundle] pathForResource:@"LEDHeadlamps" ofType:@"mp4"];
 	NSBundle *bundle = [NSBundle mainBundle];
 	if (bundle) {		
 		NSString *moviePath = [bundle pathForResource:movieName ofType:@"mp4"];
@@ -113,7 +112,7 @@
 			
             NSURL* videoURL = [NSURL URLWithString:movieName];
 			moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:videoURL];
-			[moviePlayer setFullscreen:YES];
+			//[moviePlayer setFullscreen:YES];
 			moviePlayer.scalingMode = MPMovieScalingModeAspectFit;
             
 			CGAffineTransform transform = CGAffineTransformMakeRotation(90 * (M_PI / 180));
@@ -125,6 +124,8 @@
 			moviePlayer.view.backgroundColor = [UIColor blackColor]; 
 			[self.window addSubview:moviePlayer.view];
 			
+            [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationLandscapeRight];
+            
 			[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayerLoadStateChanged:) name:MPMoviePlayerLoadStateDidChangeNotification object:nil];
 			[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(movieDidFinish:) name:MPMoviePlayerPlaybackDidFinishNotification object:nil];
 		}
@@ -135,7 +136,6 @@
 {
 	if ([moviePlayer loadState] != MPMovieLoadStateUnknown) {		
 		[moviePlayer play];
-        [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationLandscapeRight];
 		[[NSNotificationCenter defaultCenter] removeObserver:self name:MPMoviePlayerLoadStateDidChangeNotification object:nil];
 	}		
 	
@@ -143,9 +143,15 @@
 
 - (void)movieDidFinish:(NSNotification*)notification
 {
-	[moviePlayer.view removeFromSuperview];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MPMoviePlayerPlaybackDidFinishNotification object:nil];
+    
     [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationPortrait];
-	//[moviePlayer release];
+	[moviePlayer.view removeFromSuperview];
+    
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:NO];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent animated:YES];
+    
+	[moviePlayer release];
 }
 
 
