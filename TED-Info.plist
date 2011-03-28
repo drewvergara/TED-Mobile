@@ -35,5 +35,11 @@
 	<true/>
 	<key>UIStatusBarStyle</key>
 	<string>UIStatusBarStyleBlackOpaque</string>
+	<key>UILaunchImageFile</key>
+	<string>launch.png</string>
+	<key>UIStatusBarHidden</key>
+	<false/>
+	<key>UIApplicationExitsOnSuspend</key>
+	<true/>
 </dict>
 </plist>

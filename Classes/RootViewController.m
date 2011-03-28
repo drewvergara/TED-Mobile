@@ -25,13 +25,10 @@ int counter = 1;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:NO];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent animated:YES];
     
 	self.navigationController.navigationBar.hidden = NO;
-	
-	UIImageView *imgView;
-	imgView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"TED-logo-sm.png"]] autorelease];
+	    
+	UIImageView *imgView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"TED-logo-sm.png"]] autorelease];
 	[imgView setContentMode:UIViewContentModeScaleAspectFit];
 	[imgView setFrame:CGRectMake(0, 0, 50, 17.5)];
 	self.navigationItem.titleView = imgView;	
@@ -41,7 +38,7 @@ int counter = 1;
 
 	[self buildOverlay];
 
-	videoView.frame = CGRectMake(0, 80, videoView.frame.size.width, videoView.frame.size.height);
+	videoView.frame = CGRectMake(0, 60, videoView.frame.size.width, videoView.frame.size.height);
 	
     scrollView.contentSize = CGSizeMake(videoView.frame.size.width, 3685.0);
 
@@ -68,9 +65,6 @@ int counter = 1;
 {
     TEDAppDelegate *appdelegate = (TEDAppDelegate *)[[UIApplication sharedApplication] delegate];
 	[appdelegate removeOverlay];
-
-    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:NO];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent animated:YES];
         
 	[UIView beginAnimations:@"removeOverlay" context:nil];
 	[UIView setAnimationDelay:0.1];

@@ -95,7 +95,24 @@
 
 - (void)animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
 {
-    [introOverlay removeFromSuperview];
+
+    if ([animationID isEqualToString:@"removeOverlay"]) {
+        [introOverlay removeFromSuperview];
+    }
+    
+    if ([animationID isEqualToString:@"playVideo"]) {
+        [moviePlayer play];
+    }
+    
+    if ([animationID isEqualToString:@"stopVideo"]) {    
+        [moviePlayer.view removeFromSuperview];
+        
+        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:NO];
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent animated:YES];
+        
+        [moviePlayer release];
+    }
+
 }
 
 #pragma mark -
@@ -122,9 +139,6 @@
 			moviePlayer.controlStyle = MPMovieControlStyleFullscreen;
 			
 			moviePlayer.view.backgroundColor = [UIColor blackColor]; 
-			[self.window addSubview:moviePlayer.view];
-			
-            [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationLandscapeRight];
             
 			[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayerLoadStateChanged:) name:MPMoviePlayerLoadStateDidChangeNotification object:nil];
 			[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(movieDidFinish:) name:MPMoviePlayerPlaybackDidFinishNotification object:nil];
@@ -134,8 +148,22 @@
 
 - (void)moviePlayerLoadStateChanged:(NSNotification *)notification
 {
-	if ([moviePlayer loadState] != MPMovieLoadStateUnknown) {		
-		[moviePlayer play];
+	if ([moviePlayer loadState] != MPMovieLoadStateUnknown) {
+        [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationLandscapeRight];
+        [self.window addSubview:moviePlayer.view];
+
+        moviePlayer.view.alpha = 0.0;        
+        
+        [UIView beginAnimations:@"playVideo" context:nil];
+        [UIView setAnimationDelay:0.0];
+        [UIView setAnimationDuration:1.0];
+        [UIView setAnimationDelegate:self];
+        [UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
+        
+        moviePlayer.view.alpha = 1.0;
+        
+        [UIView commitAnimations];
+
 		[[NSNotificationCenter defaultCenter] removeObserver:self name:MPMoviePlayerLoadStateDidChangeNotification object:nil];
 	}		
 	
@@ -145,13 +173,19 @@
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:MPMoviePlayerPlaybackDidFinishNotification object:nil];
     
+    [moviePlayer stop];
+    
     [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationPortrait];
-	[moviePlayer.view removeFromSuperview];
+
+    [UIView beginAnimations:@"stopVideo" context:nil];
+    [UIView setAnimationDelay:0.0];
+    [UIView setAnimationDuration:1.0];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
     
-    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:NO];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent animated:YES];
+    moviePlayer.view.alpha = 0.0;
     
-	[moviePlayer release];
+    [UIView commitAnimations];
 }
 
 
