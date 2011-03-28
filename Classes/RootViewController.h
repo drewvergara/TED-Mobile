@@ -11,12 +11,11 @@
 @interface RootViewController : UIViewController {
 	IBOutlet UIView *overlayView;
 	IBOutlet UIView *videoView;
-	
+	IBOutlet UIView *loadingView;
+    
 	UIImageView *overlayBGImageView;
 
 	IBOutlet UIButton *featuredTalk;
-	IBOutlet UIButton *talk1;
-	IBOutlet UIButton *talk2;
     
     IBOutlet UIScrollView *scrollView;
     
@@ -26,10 +25,9 @@
 }
 @property (nonatomic, retain) IBOutlet UIView *overlayView; 
 @property (nonatomic, retain) IBOutlet UIView *videoView;
+@property (nonatomic, retain) IBOutlet UIView *loadingView;
 @property (nonatomic, retain) UIImageView *overlayBGImageView;
 @property (nonatomic, retain) IBOutlet UIButton *featuredTalk;
-@property (nonatomic, retain) IBOutlet UIButton *talk1;
-@property (nonatomic, retain) IBOutlet UIButton *talk2;
 @property (nonatomic, retain) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, retain) NSMutableArray *dataArray;
 @property (nonatomic, retain) NSString *mainMovie;

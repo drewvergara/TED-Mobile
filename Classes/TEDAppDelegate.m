@@ -14,7 +14,7 @@
 
 @synthesize window;
 @synthesize navigationController;
-@synthesize introOverlay;
+@synthesize introOverlay, loadVideoOverlay;
 
 #pragma mark -
 #pragma mark Application lifecycle
@@ -118,13 +118,20 @@
 #pragma mark -
 #pragma mark MoviePlayer
 
-- (void)prepMoviePlayer:(NSString *)movieName
+- (void)prepMoviePlayer:(NSString *)movieName loadingView:(UIView *)loadingOverlay
 {
+    loadVideoOverlay = loadingOverlay;
+    
+    loadVideoOverlay.center = CGPointMake(160, 280);
+    [self.window addSubview:loadVideoOverlay];
+    
+    self.window.userInteractionEnabled = NO;
+    
 	NSBundle *bundle = [NSBundle mainBundle];
 	if (bundle) {		
-		NSString *moviePath = [bundle pathForResource:movieName ofType:@"mp4"];
-		NSLog(@"%@", movieName);
-		NSLog(@"%@", moviePath);
+		//NSString *moviePath = [bundle pathForResource:movieName ofType:@"mp4"];
+//		NSLog(@"%@", movieName);
+//		NSLog(@"%@", moviePath);
 		if (movieName){
 			
             NSURL* videoURL = [NSURL URLWithString:movieName];
@@ -153,6 +160,9 @@
         [self.window addSubview:moviePlayer.view];
 
         moviePlayer.view.alpha = 0.0;        
+        
+        self.window.userInteractionEnabled = YES;
+        [loadVideoOverlay removeFromSuperview];
         
         [UIView beginAnimations:@"playVideo" context:nil];
         [UIView setAnimationDelay:0.0];

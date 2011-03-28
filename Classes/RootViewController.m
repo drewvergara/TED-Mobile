@@ -12,8 +12,8 @@
 
 @implementation RootViewController
 
-@synthesize overlayView, videoView, overlayBGImageView;
-@synthesize featuredTalk, talk1, talk2;
+@synthesize overlayView, videoView, overlayBGImageView, loadingView;
+@synthesize featuredTalk;
 @synthesize mainMovie, scrollView;
 @synthesize dataArray;
 
@@ -84,8 +84,8 @@ int counter = 1;
 {
     [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(removeOverlay) userInfo:nil repeats:NO];
     
-	NSLog(@"connection ended");
-	//NSLog(@"%@", data);
+//	NSLog(@"connection ended");
+//	NSLog(@"%@", data);
 
     dataArray = [[NSMutableArray alloc] init];
     
@@ -148,11 +148,7 @@ int counter = 1;
             overlayPointYMultiplier = ((float)counter / 2);
         }
     }
-	
-    NSLog(@"counter: %d", counter);
-    NSLog(@"X: %f", overlayPointX);
-    NSLog(@"Y: %f", overlayPointYMultiplier);
-    
+	    
 	UIImage *fullImage = [image objectForKey:@"image"];
     
     UIButton *videoButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -184,8 +180,6 @@ int counter = 1;
     [dataArray addObject:[image objectForKey:@"context"]];
 	
 	counter ++;
-	
-    NSLog(@"%@", dataArray);
     
 	[image release];
 }
@@ -203,20 +197,18 @@ int counter = 1;
 - (IBAction)featuredTalk:(id)sender
 {
 	TEDAppDelegate *appdelegate = (TEDAppDelegate *)[[UIApplication sharedApplication] delegate];
-	[appdelegate prepMoviePlayer:mainMovie];
+	[appdelegate prepMoviePlayer:mainMovie loadingView:loadingView];
 }
 
 - (void)playVideo:(id)sender
 {
 	UIButton *button = (id)sender;
-    NSLog(@"%d", button.tag);
         
     NSDictionary *contextDictionary = [dataArray objectAtIndex:(button.tag - 1)];
-    NSLog(@"%@", contextDictionary);
     NSString *urlMovie = (NSString *)[contextDictionary objectForKey:@"videoURL"];
 
 	TEDAppDelegate *appdelegate = (TEDAppDelegate *)[[UIApplication sharedApplication] delegate];
-	[appdelegate prepMoviePlayer:urlMovie];
+	[appdelegate prepMoviePlayer:urlMovie loadingView:loadingView];
 }
 
 /*
@@ -266,6 +258,16 @@ int counter = 1;
 
 - (void)dealloc {
     [super dealloc];
+    
+    [overlayView release]; 
+    [videoView release];
+    [overlayBGImageView release]; 
+    [loadingView release];
+    [featuredTalk release];
+    [mainMovie release]; 
+    [scrollView release];
+    [dataArray release];
+
 }
 
 

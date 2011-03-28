@@ -17,6 +17,7 @@
     UINavigationController *navigationController;
  
     UIView *introOverlay;
+    UIView *loadVideoOverlay;
     
     MPMoviePlayerController *moviePlayer;
 }
@@ -24,10 +25,11 @@
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) IBOutlet UINavigationController *navigationController;
 @property (nonatomic, retain) UIView *introOverlay;
+@property (nonatomic, retain) UIView *loadVideoOverlay;
 
 - (void)addOverlay:(UIView *)overlay;
 - (void)removeOverlay;
-- (void)prepMoviePlayer:(NSString *)movieName;
+- (void)prepMoviePlayer:(NSString *)movieName loadingView:(UIView *)loadingOverlay;
 
 @end
 
