@@ -23,6 +23,7 @@
 		353067B5132330E700CC6332 /* TED-logo-sm.png in Resources */ = {isa = PBXBuildFile; fileRef = 353067B4132330E700CC6332 /* TED-logo-sm.png */; };
 		353067F713233B0200CC6332 /* TED-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 353067F613233B0200CC6332 /* TED-bg.png */; };
 		358C37A81324BFD3007D7DAA /* featured-talk-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 358C37A71324BFD3007D7DAA /* featured-talk-bg.png */; };
+		35987C0A134009A6002AE7DE /* miniHeading-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 35987C09134009A6002AE7DE /* miniHeading-bg.png */; };
 		35E55E4A1321D812009C228F /* OpenNC.m in Sources */ = {isa = PBXBuildFile; fileRef = 35E55E491321D812009C228F /* OpenNC.m */; };
 		35F977FF133D705F00ECCD65 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35F977FE133D705F00ECCD65 /* MediaPlayer.framework */; };
 /* End PBXBuildFile section */
@@ -50,6 +51,7 @@
 		353067B4132330E700CC6332 /* TED-logo-sm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TED-logo-sm.png"; sourceTree = SOURCE_ROOT; };
 		353067F613233B0200CC6332 /* TED-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TED-bg.png"; sourceTree = SOURCE_ROOT; };
 		358C37A71324BFD3007D7DAA /* featured-talk-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "featured-talk-bg.png"; sourceTree = SOURCE_ROOT; };
+		35987C09134009A6002AE7DE /* miniHeading-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "miniHeading-bg.png"; sourceTree = "<group>"; };
 		35E55E481321D812009C228F /* OpenNC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OpenNC.h; path = Classes/OpenNC.h; sourceTree = SOURCE_ROOT; };
 		35E55E491321D812009C228F /* OpenNC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OpenNC.m; path = Classes/OpenNC.m; sourceTree = SOURCE_ROOT; };
 		35F977FE133D705F00ECCD65 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
@@ -141,6 +143,7 @@
 				35306759132327AE00CC6332 /* TED-logo.png */,
 				353067B4132330E700CC6332 /* TED-logo-sm.png */,
 				358C37A71324BFD3007D7DAA /* featured-talk-bg.png */,
+				35987C09134009A6002AE7DE /* miniHeading-bg.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -229,6 +232,7 @@
 				353067B5132330E700CC6332 /* TED-logo-sm.png in Resources */,
 				353067F713233B0200CC6332 /* TED-bg.png in Resources */,
 				358C37A81324BFD3007D7DAA /* featured-talk-bg.png in Resources */,
+				35987C0A134009A6002AE7DE /* miniHeading-bg.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

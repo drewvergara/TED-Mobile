@@ -7,7 +7,7 @@
 //
 
 #import "ImageRequestor.h"
-#import "OpenNC.h";
+#import "OpenNC.h"
 
 @implementation ImageRequestor
 
@@ -20,7 +20,7 @@
 }
 
 - (id) startWithURL:(NSString *)imageurl caller:(NSObject *)caller callback:(SEL)callback context:(NSObject *)ctx {
-    if (self = [super init]) {
+    if (self == [super init]) {
         // Initialization code
 		
 		self.url = imageurl;

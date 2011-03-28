@@ -20,7 +20,9 @@
     
     IBOutlet UIScrollView *scrollView;
     
-    NSString *testMovie;	
+    NSMutableArray *dataArray;
+    
+    NSString *mainMovie;	
 }
 @property (nonatomic, retain) IBOutlet UIView *overlayView; 
 @property (nonatomic, retain) IBOutlet UIView *videoView;
@@ -29,7 +31,8 @@
 @property (nonatomic, retain) IBOutlet UIButton *talk1;
 @property (nonatomic, retain) IBOutlet UIButton *talk2;
 @property (nonatomic, retain) IBOutlet UIScrollView *scrollView;
-@property (nonatomic, retain) NSString *testMovie;
+@property (nonatomic, retain) NSMutableArray *dataArray;
+@property (nonatomic, retain) NSString *mainMovie;
 
 - (void)buildOverlay;
 - (void)createTalkView:(NSArray *)data;

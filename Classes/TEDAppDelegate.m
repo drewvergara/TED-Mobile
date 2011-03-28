@@ -79,10 +79,24 @@
 
 - (void)removeOverlay
 {
-//    [self.window addSubview:overlay];
-    [introOverlay removeFromSuperview];
+	[UIView beginAnimations:@"removeOverlay" context:nil];
+	[UIView setAnimationDelay:0.1];
+	[UIView setAnimationDuration:0.75];
+	[UIView setAnimationDelegate:self];
+	[UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
+	
+	introOverlay.alpha = 0.0;
+    introOverlay.transform = CGAffineTransformMakeScale(2.0, 2.0);
+	
+	[UIView commitAnimations];
+	
+	[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:YES];
 }
 
+- (void)animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
+{
+    [introOverlay removeFromSuperview];
+}
 
 #pragma mark -
 #pragma mark MoviePlayer
