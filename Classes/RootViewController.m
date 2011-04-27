@@ -9,6 +9,7 @@
 #import "RootViewController.h"
 #import "OpenNC.h"
 #import "TEDAppDelegate.h"
+#import "SelectedViewController.h"
 
 @implementation RootViewController
 
@@ -207,8 +208,13 @@ int counter = 1;
     NSDictionary *contextDictionary = [dataArray objectAtIndex:(button.tag - 1)];
     NSString *urlMovie = (NSString *)[contextDictionary objectForKey:@"videoURL"];
 
-	TEDAppDelegate *appdelegate = (TEDAppDelegate *)[[UIApplication sharedApplication] delegate];
-	[appdelegate prepMoviePlayer:urlMovie loadingView:loadingView];
+    
+    SelectedViewController *selectedView = [[SelectedViewController alloc] initWithNibName:@"SelectedViewController" bundle:[NSBundle mainBundle]];	
+	[self.navigationController pushViewController:selectedView animated:YES];
+	[selectedView release];    
+    
+//	TEDAppDelegate *appdelegate = (TEDAppDelegate *)[[UIApplication sharedApplication] delegate];
+//	[appdelegate prepMoviePlayer:urlMovie loadingView:loadingView];
 }
 
 /*

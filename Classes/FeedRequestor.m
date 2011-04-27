@@ -43,7 +43,6 @@
 - (void) main {
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 	
-//	NSString *strURL = [NSString stringWithFormat:@"http://gdata.youtube.com/feeds/api/videos?alt=jsonc&author=kswissinc&orderby=published&format=6&v=2"];
 	NSString *strURL = [NSString stringWithFormat:@"http://feeds.feedburner.com/tedtalks_video"];
 	NSURL *sourceURL = [NSURL URLWithString:strURL];
 	
@@ -70,7 +69,7 @@
 		[addressParser setDelegate:self];
 		[addressParser setShouldResolveExternalEntities:YES];
 		success = [addressParser parse]; // return value not used
-		//NSLog(@"%@", item);
+		NSLog(@"%@", item);
 		// if not successful, delegate is informed of error
 		
 		

@@ -22,6 +22,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
     
     // Override point for customization after application launch.
+    navigationController = [[UINavigationController alloc] initWithRootViewController:[[RootViewController alloc] initWithNibName:@"RootViewController" bundle:nil]];
+    navigationController.navigationBar.tintColor = [UIColor blackColor];
     
     // Add the navigation controller's view to the window and display.	
     [self.window addSubview:navigationController.view];
