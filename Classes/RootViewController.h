@@ -20,6 +20,7 @@
     IBOutlet UIScrollView *scrollView;
     
     NSMutableArray *dataArray;
+    NSMutableDictionary *initialMovieDictionary;
     
     NSString *mainMovie;	
 }
@@ -30,6 +31,7 @@
 @property (nonatomic, retain) IBOutlet UIButton *featuredTalk;
 @property (nonatomic, retain) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, retain) NSMutableArray *dataArray;
+@property (nonatomic, retain) NSMutableDictionary *initialMovieDictionary;
 @property (nonatomic, retain) NSString *mainMovie;
 
 - (void)buildOverlay;

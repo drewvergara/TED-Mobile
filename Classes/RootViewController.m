@@ -16,7 +16,7 @@
 @synthesize overlayView, videoView, overlayBGImageView, loadingView;
 @synthesize featuredTalk;
 @synthesize mainMovie, scrollView;
-@synthesize dataArray;
+@synthesize dataArray, initialMovieDictionary;
 
 int counter = 1;
 
@@ -102,6 +102,12 @@ int counter = 1;
         NSString *urlMovie = [dataDic objectForKey:@"videoURL"];
         [contextDict setObject:urlMovie forKey:@"videoURL"];
         
+        NSString *description = [dataDic objectForKey:@"description"];
+        [contextDict setObject:description forKey:@"description"];
+        
+        NSString *duration = [dataDic objectForKey:@"duration"];
+        [contextDict setObject:duration forKey:@"duration"];
+        
 		[[OpenNC getInstance] getImage:self callback:@selector(displayImage:) imageURL:imgURL context:contextDict];
         
         [contextDict release];
@@ -129,6 +135,23 @@ int counter = 1;
 	
 	[self.view addSubview:videoView];
 	videoView.alpha = 0.0;
+    
+    initialMovieDictionary = [[NSMutableDictionary alloc] init];
+    
+    NSString *imgURL = [dataDic1 objectForKey:@"thumbnailURL"];        
+    [initialMovieDictionary setObject:imgURL forKey:@"thumbnailURL"];
+    
+    NSString *subtitle = [dataDic1 objectForKey:@"subtitle"];
+    [initialMovieDictionary setObject:subtitle forKey:@"subtitle"];
+    
+    NSString *urlMovie = [dataDic1 objectForKey:@"videoURL"];
+    [initialMovieDictionary setObject:urlMovie forKey:@"videoURL"];
+    
+    NSString *description = [dataDic1 objectForKey:@"description"];
+    [initialMovieDictionary setObject:description forKey:@"description"];
+    
+    NSString *duration = [dataDic1 objectForKey:@"duration"];
+    [initialMovieDictionary setObject:duration forKey:@"duration"];
 }
 
 - (void)displayImage:(NSDictionary *)image {
@@ -197,8 +220,14 @@ int counter = 1;
 
 - (IBAction)featuredTalk:(id)sender
 {
-	TEDAppDelegate *appdelegate = (TEDAppDelegate *)[[UIApplication sharedApplication] delegate];
-	[appdelegate prepMoviePlayer:mainMovie loadingView:loadingView];
+//	TEDAppDelegate *appdelegate = (TEDAppDelegate *)[[UIApplication sharedApplication] delegate];
+//	[appdelegate prepMoviePlayer:mainMovie loadingView:loadingView];
+    
+    NSLog(@"data from tap: %@", initialMovieDictionary);
+        
+    SelectedViewController *selectedView = [[SelectedViewController alloc] initWithNibName:@"SelectedViewController" bundle:[NSBundle mainBundle]];	
+	[self.navigationController pushViewController:selectedView animated:YES];
+	[selectedView release];    
 }
 
 - (void)playVideo:(id)sender
@@ -206,7 +235,8 @@ int counter = 1;
 	UIButton *button = (id)sender;
         
     NSDictionary *contextDictionary = [dataArray objectAtIndex:(button.tag - 1)];
-    NSString *urlMovie = (NSString *)[contextDictionary objectForKey:@"videoURL"];
+    NSLog(@"data from tap: %@", contextDictionary);
+    //NSString *urlMovie = (NSString *)[contextDictionary objectForKey:@"videoURL"];
 
     
     SelectedViewController *selectedView = [[SelectedViewController alloc] initWithNibName:@"SelectedViewController" bundle:[NSBundle mainBundle]];	
