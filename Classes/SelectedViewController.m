@@ -7,9 +7,12 @@
 //
 
 #import "SelectedViewController.h"
-
+#import "OpenNC.h"
 
 @implementation SelectedViewController
+
+@synthesize selectedData;
+@synthesize selectedTalkBtn;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -52,6 +55,20 @@
     
         
     // Do any additional setup after loading the view from its nib.
+    
+    NSLog(@"selected data: %@", selectedData);
+    
+    [[OpenNC getInstance] getImage:self callback:@selector(displayMainImage:) imageURL:[selectedData objectForKey:@"overlayURL"] context:nil];
+}
+
+- (void)displayMainImage:(NSDictionary *)image {
+	[image retain];
+    
+	UIImage *fullImage = [image objectForKey:@"image"];
+	
+	[selectedTalkBtn setBackgroundImage:fullImage forState:UIControlStateNormal];
+	
+	[image release];
 }
 
 - (void)viewDidUnload

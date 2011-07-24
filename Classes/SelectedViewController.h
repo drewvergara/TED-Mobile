@@ -10,7 +10,12 @@
 
 
 @interface SelectedViewController : UIViewController {
+ 
+    NSDictionary *selectedData;
     
+    IBOutlet UIButton *selectedTalkBtn;
 }
 
+@property (nonatomic, retain) NSDictionary *selectedData;
+@property (nonatomic, retain) IBOutlet UIButton *selectedTalkBtn;
 @end

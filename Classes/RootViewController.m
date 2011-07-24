@@ -95,6 +95,10 @@ int counter = 1;
         
 		NSDictionary *dataDic = [data objectAtIndex:i];
 		NSString *imgURL = [dataDic objectForKey:@"thumbnailURL"];        
+        [contextDict setObject:imgURL forKey:@"thumbnailURL"];
+
+		NSString *overlayImgURL = [dataDic objectForKey:@"overlayURL"];        
+        [contextDict setObject:overlayImgURL forKey:@"overlayURL"];
                 
         NSString *subtitle = [dataDic objectForKey:@"subtitle"];
         [contextDict setObject:subtitle forKey:@"subtitle"];
@@ -140,7 +144,10 @@ int counter = 1;
     
     NSString *imgURL = [dataDic1 objectForKey:@"thumbnailURL"];        
     [initialMovieDictionary setObject:imgURL forKey:@"thumbnailURL"];
-    
+
+    NSString *overlayImgURL = [dataDic1 objectForKey:@"overlayURL"];        
+    [initialMovieDictionary setObject:overlayImgURL forKey:@"overlayURL"];
+        
     NSString *subtitle = [dataDic1 objectForKey:@"subtitle"];
     [initialMovieDictionary setObject:subtitle forKey:@"subtitle"];
     
@@ -223,9 +230,11 @@ int counter = 1;
 //	TEDAppDelegate *appdelegate = (TEDAppDelegate *)[[UIApplication sharedApplication] delegate];
 //	[appdelegate prepMoviePlayer:mainMovie loadingView:loadingView];
     
-    NSLog(@"data from tap: %@", initialMovieDictionary);
+    //NSLog(@"data from tap: %@", initialMovieDictionary);
         
-    SelectedViewController *selectedView = [[SelectedViewController alloc] initWithNibName:@"SelectedViewController" bundle:[NSBundle mainBundle]];	
+    SelectedViewController *selectedView = [[SelectedViewController alloc] initWithNibName:@"SelectedViewController" bundle:[NSBundle mainBundle]];
+    
+    selectedView.selectedData = initialMovieDictionary;
 	[self.navigationController pushViewController:selectedView animated:YES];
 	[selectedView release];    
 }
@@ -235,11 +244,12 @@ int counter = 1;
 	UIButton *button = (id)sender;
         
     NSDictionary *contextDictionary = [dataArray objectAtIndex:(button.tag - 1)];
-    NSLog(@"data from tap: %@", contextDictionary);
+    //NSLog(@"data from tap: %@", contextDictionary);
     //NSString *urlMovie = (NSString *)[contextDictionary objectForKey:@"videoURL"];
 
     
-    SelectedViewController *selectedView = [[SelectedViewController alloc] initWithNibName:@"SelectedViewController" bundle:[NSBundle mainBundle]];	
+    SelectedViewController *selectedView = [[SelectedViewController alloc] initWithNibName:@"SelectedViewController" bundle:[NSBundle mainBundle]];
+    selectedView.selectedData = contextDictionary;
 	[self.navigationController pushViewController:selectedView animated:YES];
 	[selectedView release];    
     
