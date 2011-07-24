@@ -41,7 +41,7 @@ int counter = 1;
 
 	videoView.frame = CGRectMake(0, 60, videoView.frame.size.width, videoView.frame.size.height);
 	
-    scrollView.contentSize = CGSizeMake(videoView.frame.size.width, 3685.0);
+    scrollView.contentSize = CGSizeMake(videoView.frame.size.width, 3700.0);
 
 	[[OpenNC getInstance] getFeed:self callback:@selector(showResults:) parameters:nil];
 }
@@ -99,6 +99,9 @@ int counter = 1;
 
 		NSString *overlayImgURL = [dataDic objectForKey:@"overlayURL"];        
         [contextDict setObject:overlayImgURL forKey:@"overlayURL"];
+
+		NSString *author = [dataDic objectForKey:@"author"];        
+        [contextDict setObject:author forKey:@"author"];
                 
         NSString *subtitle = [dataDic objectForKey:@"subtitle"];
         [contextDict setObject:subtitle forKey:@"subtitle"];
@@ -147,7 +150,10 @@ int counter = 1;
 
     NSString *overlayImgURL = [dataDic1 objectForKey:@"overlayURL"];        
     [initialMovieDictionary setObject:overlayImgURL forKey:@"overlayURL"];
-        
+
+    NSString *author = [dataDic1 objectForKey:@"author"];        
+    [initialMovieDictionary setObject:author forKey:@"author"];
+
     NSString *subtitle = [dataDic1 objectForKey:@"subtitle"];
     [initialMovieDictionary setObject:subtitle forKey:@"subtitle"];
     
@@ -183,7 +189,7 @@ int counter = 1;
 	UIImage *fullImage = [image objectForKey:@"image"];
     
     UIButton *videoButton = [UIButton buttonWithType:UIButtonTypeCustom];
-	videoButton.frame = CGRectMake(overlayPointX, 117 + (115.0 * overlayPointYMultiplier), 148.0, 111.0);
+	videoButton.frame = CGRectMake(overlayPointX, 131 + (115.0 * overlayPointYMultiplier), 148.0, 111.0);
 	[videoButton setBackgroundImage:fullImage forState:UIControlStateNormal];
     videoButton.tag = counter;
 	[videoButton addTarget:self action:@selector(playVideo:) forControlEvents:UIControlEventTouchUpInside];
@@ -191,14 +197,14 @@ int counter = 1;
     
     UIImage *miniHeadingImage = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"miniHeading-bg" ofType:@"png"]];
 	UIImageView *miniHeadingImageView = [[UIImageView alloc] initWithImage:miniHeadingImage];
-	miniHeadingImageView.frame = CGRectMake(overlayPointX, 197 + (115.0 * overlayPointYMultiplier), 148.0, 30.0);
+	miniHeadingImageView.frame = CGRectMake(overlayPointX, 211 + (115.0 * overlayPointYMultiplier), 148.0, 30.0);
 
 	[scrollView addSubview:miniHeadingImageView];
     
     [miniHeadingImage release];
     [miniHeadingImageView release];
     
-	UILabel *miniHeading = [[UILabel alloc] initWithFrame:CGRectMake(overlayPointX + 3, 197 + (115.0 * overlayPointYMultiplier), 142.0, 30.0)];
+	UILabel *miniHeading = [[UILabel alloc] initWithFrame:CGRectMake(overlayPointX + 3, 211 + (115.0 * overlayPointYMultiplier), 142.0, 30.0)];
 	miniHeading.textAlignment = UITextAlignmentLeft;
 	miniHeading.textColor = [UIColor whiteColor];
 	miniHeading.font = [UIFont boldSystemFontOfSize:10.0];
