@@ -8,11 +8,13 @@
 
 #import "SelectedViewController.h"
 #import "OpenNC.h"
+#import "TEDAppDelegate.h"
 
 @implementation SelectedViewController
 
+@synthesize loadingView;
 @synthesize selectedData;
-@synthesize selectedTalkBtn;
+@synthesize activityIndicator, selectedTalkBtn, selectedTalkBg, selectedTalkDescription;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -23,24 +25,10 @@
     return self;
 }
 
-- (void)dealloc
-{
-    [super dealloc];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
-}
-
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
     [super viewDidLoad];
     
 	self.navigationController.navigationBar.hidden = NO;
@@ -53,16 +41,18 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
    //self.navigationItem.leftBarButtonItem = self.
     
-        
-    // Do any additional setup after loading the view from its nib.
-    
     NSLog(@"selected data: %@", selectedData);
+
+    selectedTalkBg.hidden = YES;
+    selectedTalkDescription.text = [selectedData objectForKey:@"description"];
     
     [[OpenNC getInstance] getImage:self callback:@selector(displayMainImage:) imageURL:[selectedData objectForKey:@"overlayURL"] context:nil];
 }
 
-- (void)displayMainImage:(NSDictionary *)image {
-	[image retain];
+- (void)displayMainImage:(NSDictionary *)image {	
+    [image retain];
+    
+    selectedTalkBg.hidden = NO;
     
 	UIImage *fullImage = [image objectForKey:@"image"];
 	
@@ -90,6 +80,15 @@
 	heading.text = [selectedData objectForKey:@"subtitle"];
 	heading.numberOfLines = 0;
 	[self.view addSubview:heading];
+    
+    activityIndicator.hidden = YES;
+}
+
+
+- (IBAction)playSelectedTalk:(id)sender
+{
+	TEDAppDelegate *appdelegate = (TEDAppDelegate *)[[UIApplication sharedApplication] delegate];
+	[appdelegate prepMoviePlayer:[selectedData objectForKey:@"videoURL"] loadingView:loadingView];
 }
 
 - (void)viewDidUnload
@@ -103,6 +102,25 @@
 {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark Memory Management
+
+- (void)didReceiveMemoryWarning
+{
+    // Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+    
+    // Release any cached data, images, etc that aren't in use.
+}
+
+- (void)dealloc
+{
+    [super dealloc];
+    [activityIndicator release];
+    [selectedTalkBtn release];
+    [selectedTalkBg release]; 
+    [selectedTalkDescription release];
 }
 
 @end
