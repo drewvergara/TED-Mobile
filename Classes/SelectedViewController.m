@@ -77,7 +77,7 @@
         clickToPlay.alpha = 0.0;
 
         [UIView beginAnimations:nil context:nil];
-        [UIView setAnimationDuration:0.3];
+        [UIView setAnimationDuration:0.2];
         [UIView setAnimationDelegate:self];
         [UIView setAnimationDelay:0.2];
         clickToPlay.transform = CGAffineTransformMakeTranslation(0, 10.0);
