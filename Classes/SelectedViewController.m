@@ -58,6 +58,7 @@
 	UIImage *fullImage = [image objectForKey:@"image"];
 	
 	[selectedTalkBtn setBackgroundImage:fullImage forState:UIControlStateNormal];
+    selectedTalkBtn.enabled = NO;
 	
 	[image release];
 
@@ -81,7 +82,8 @@
         [UIView setAnimationDelay:0.2];
         clickToPlay.transform = CGAffineTransformMakeTranslation(0, 10.0);
         clickToPlay.alpha = 1.0;
-        [UIView commitAnimations];    
+        [UIView commitAnimations];
+        selectedTalkBtn.enabled = YES;
     }
     
     //Talk Subtitle
