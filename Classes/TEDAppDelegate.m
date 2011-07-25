@@ -23,7 +23,8 @@
     
     // Override point for customization after application launch.
     navigationController = [[UINavigationController alloc] initWithRootViewController:[[RootViewController alloc] initWithNibName:@"RootViewController" bundle:nil]];
-    navigationController.navigationBar.tintColor = [UIColor blackColor];
+    //navigationController.navigationBar.tintColor = [UIColor blackColor];
+    navigationController.navigationBar.barStyle = UIBarStyleBlack;
     
     // Add the navigation controller's view to the window and display.	
     [self.window addSubview:navigationController.view];
@@ -124,8 +125,17 @@
 {
     loadVideoOverlay = loadingOverlay;
     
-    loadVideoOverlay.center = CGPointMake(160, 280);
+    loadVideoOverlay.center = CGPointMake(160, 290);
     [self.window addSubview:loadVideoOverlay];
+
+    loadVideoOverlay.alpha = 0.0;
+    
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.3];
+    [UIView setAnimationDelegate:self];
+    loadVideoOverlay.transform = CGAffineTransformMakeTranslation(0, -20.0);
+    loadVideoOverlay.alpha = 1.0;
+    [UIView commitAnimations];    
     
     self.window.userInteractionEnabled = NO;
     

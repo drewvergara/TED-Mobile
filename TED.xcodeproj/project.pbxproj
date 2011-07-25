@@ -27,6 +27,8 @@
 		35987C2613402FB9002AE7DE /* TED-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 35987C2413402FB9002AE7DE /* TED-logo.png */; };
 		35987C3213404B63002AE7DE /* loading-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 35987C3113404B63002AE7DE /* loading-bg.png */; };
 		35E55E4A1321D812009C228F /* OpenNC.m in Sources */ = {isa = PBXBuildFile; fileRef = 35E55E491321D812009C228F /* OpenNC.m */; };
+		35E68ACA13DD1438006A48C8 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 35E68AC913DD1438006A48C8 /* Reachability.m */; };
+		35E68ACD13DD1584006A48C8 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35E68ACC13DD1584006A48C8 /* SystemConfiguration.framework */; };
 		35F977FF133D705F00ECCD65 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35F977FE133D705F00ECCD65 /* MediaPlayer.framework */; };
 		A200D44F136872A80071929C /* SelectedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A200D44D136872A80071929C /* SelectedViewController.m */; };
 		A200D450136872A80071929C /* SelectedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A200D44E136872A80071929C /* SelectedViewController.xib */; };
@@ -60,6 +62,9 @@
 		35987C3113404B63002AE7DE /* loading-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "loading-bg.png"; sourceTree = "<group>"; };
 		35E55E481321D812009C228F /* OpenNC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OpenNC.h; path = Classes/OpenNC.h; sourceTree = SOURCE_ROOT; };
 		35E55E491321D812009C228F /* OpenNC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OpenNC.m; path = Classes/OpenNC.m; sourceTree = SOURCE_ROOT; };
+		35E68AC813DD1438006A48C8 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		35E68AC913DD1438006A48C8 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		35E68ACC13DD1584006A48C8 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		35F977FE133D705F00ECCD65 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		8D1107310486CEB800E47090 /* TED-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "TED-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		A200D44C136872A80071929C /* SelectedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectedViewController.h; sourceTree = "<group>"; };
@@ -72,6 +77,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				35E68ACD13DD1584006A48C8 /* SystemConfiguration.framework in Frameworks */,
 				35F977FF133D705F00ECCD65 /* MediaPlayer.framework in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
@@ -85,6 +91,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				35E68ACB13DD143F006A48C8 /* Reachability */,
 				35E55E3D1321D7F7009C228F /* OpenNC */,
 				3530664D13230E4200CC6332 /* Root View Controller */,
 				A200D451136872AF0071929C /* Selected View Controller */,
@@ -105,6 +112,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				35E68ACC13DD1584006A48C8 /* SystemConfiguration.framework */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -181,6 +189,15 @@
 				353065A91321DA9A00CC6332 /* ImageRequestor.m */,
 			);
 			name = OpenNC;
+			sourceTree = "<group>";
+		};
+		35E68ACB13DD143F006A48C8 /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				35E68AC813DD1438006A48C8 /* Reachability.h */,
+				35E68AC913DD1438006A48C8 /* Reachability.m */,
+			);
+			name = Reachability;
 			sourceTree = "<group>";
 		};
 		A200D451136872AF0071929C /* Selected View Controller */ = {
@@ -275,6 +292,7 @@
 				353065AA1321DA9A00CC6332 /* FeedRequestor.m in Sources */,
 				353065AB1321DA9A00CC6332 /* ImageRequestor.m in Sources */,
 				A200D44F136872A80071929C /* SelectedViewController.m in Sources */,
+				35E68ACA13DD1438006A48C8 /* Reachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

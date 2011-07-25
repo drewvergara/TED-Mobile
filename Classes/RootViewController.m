@@ -197,14 +197,14 @@ int counter = 1;
     
     UIImage *miniHeadingImage = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"miniHeading-bg" ofType:@"png"]];
 	UIImageView *miniHeadingImageView = [[UIImageView alloc] initWithImage:miniHeadingImage];
-	miniHeadingImageView.frame = CGRectMake(overlayPointX, 211 + (115.0 * overlayPointYMultiplier), 148.0, 30.0);
+	miniHeadingImageView.frame = CGRectMake(overlayPointX, 212 + (115.0 * overlayPointYMultiplier), 148.0, 30.0);
 
 	[scrollView addSubview:miniHeadingImageView];
     
     [miniHeadingImage release];
     [miniHeadingImageView release];
     
-	UILabel *miniHeading = [[UILabel alloc] initWithFrame:CGRectMake(overlayPointX + 3, 211 + (115.0 * overlayPointYMultiplier), 142.0, 30.0)];
+	UILabel *miniHeading = [[UILabel alloc] initWithFrame:CGRectMake(overlayPointX + 3, 212 + (115.0 * overlayPointYMultiplier), 142.0, 30.0)];
 	miniHeading.textAlignment = UITextAlignmentLeft;
 	miniHeading.textColor = [UIColor whiteColor];
 	miniHeading.font = [UIFont boldSystemFontOfSize:10.0];
@@ -233,11 +233,6 @@ int counter = 1;
 
 - (IBAction)featuredTalk:(id)sender
 {
-//	TEDAppDelegate *appdelegate = (TEDAppDelegate *)[[UIApplication sharedApplication] delegate];
-//	[appdelegate prepMoviePlayer:mainMovie loadingView:loadingView];
-    
-    //NSLog(@"data from tap: %@", initialMovieDictionary);
-        
     SelectedViewController *selectedView = [[SelectedViewController alloc] initWithNibName:@"SelectedViewController" bundle:[NSBundle mainBundle]];
     
     selectedView.selectedData = initialMovieDictionary;
@@ -257,10 +252,7 @@ int counter = 1;
     SelectedViewController *selectedView = [[SelectedViewController alloc] initWithNibName:@"SelectedViewController" bundle:[NSBundle mainBundle]];
     selectedView.selectedData = contextDictionary;
 	[self.navigationController pushViewController:selectedView animated:YES];
-	[selectedView release];    
-    
-//	TEDAppDelegate *appdelegate = (TEDAppDelegate *)[[UIApplication sharedApplication] delegate];
-//	[appdelegate prepMoviePlayer:urlMovie loadingView:loadingView];
+	[selectedView release];
 }
 
 /*

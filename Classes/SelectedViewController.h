@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "Reachability.h"
 
 @interface SelectedViewController : UIViewController {
  	IBOutlet UIView *loadingView;
