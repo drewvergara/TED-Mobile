@@ -62,9 +62,12 @@
 	
 	[image release];
 
+    NSArray* durationSplit = [[selectedData objectForKey:@"duration"] componentsSeparatedByString: @":"];
+    NSString* durationMinute = [durationSplit objectAtIndex: 1];
+    int minuteInt = [durationMinute intValue];
+    
     //Click to Play
-
-    if ([self reachable]) {	
+    if ([self reachable] || minuteInt < 10) {	
         UILabel *clickToPlay = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 300, 20)];
         clickToPlay.textAlignment = UITextAlignmentCenter;
         clickToPlay.textColor = [UIColor whiteColor];
@@ -75,7 +78,7 @@
         clickToPlay.numberOfLines = 0;
         [self.view addSubview:clickToPlay];
         clickToPlay.alpha = 0.0;
-
+        
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:0.2];
         [UIView setAnimationDelegate:self];
@@ -83,7 +86,7 @@
         clickToPlay.transform = CGAffineTransformMakeTranslation(0, 10.0);
         clickToPlay.alpha = 1.0;
         [UIView commitAnimations];
-        selectedTalkBtn.enabled = YES;
+        selectedTalkBtn.enabled = YES;        
     }
     
     //Talk Subtitle
@@ -98,7 +101,6 @@
     
     activityIndicator.hidden = YES;
 }
-
 
 - (IBAction)playSelectedTalk:(id)sender
 {

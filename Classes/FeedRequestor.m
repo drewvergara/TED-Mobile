@@ -69,7 +69,7 @@
 		[addressParser setDelegate:self];
 		[addressParser setShouldResolveExternalEntities:YES];
 		success = [addressParser parse]; // return value not used
-		NSLog(@"%@", item);
+		//NSLog(@"%@", item);
 		// if not successful, delegate is informed of error
 		
 		
