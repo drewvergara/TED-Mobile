@@ -131,7 +131,7 @@ int counter = 1;
     mainMovie = (NSString *)[dataDic1 objectForKey:@"videoURL"];
 	[[OpenNC getInstance] getImage:self callback:@selector(displayMainImage:) imageURL:imgURL1 context:nil];
 	
-	UILabel *heading = [[UILabel alloc] initWithFrame:CGRectMake(15, 175, 290, 50)];
+	UILabel *heading = [[UILabel alloc] initWithFrame:CGRectMake(15, 182, 290, 50)];
 	heading.textAlignment = UITextAlignmentLeft;
 	heading.textColor = [UIColor whiteColor];
 	heading.font = [UIFont boldSystemFontOfSize:14.0];
