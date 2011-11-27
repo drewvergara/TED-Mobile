@@ -15,6 +15,7 @@
 		28AD73600D9D9599002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD735F0D9D9599002E5188 /* MainWindow.xib */; };
 		28C286E10D94DF7D0034E888 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C286E00D94DF7D0034E888 /* RootViewController.m */; };
 		28F335F11007B36200424DE2 /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28F335F01007B36200424DE2 /* RootViewController.xib */; };
+		35100F411482BE99004B07A8 /* play-btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 35100F401482BE99004B07A8 /* play-btn.png */; };
 		353065AA1321DA9A00CC6332 /* FeedRequestor.m in Sources */ = {isa = PBXBuildFile; fileRef = 353065A71321DA9A00CC6332 /* FeedRequestor.m */; };
 		353065AB1321DA9A00CC6332 /* ImageRequestor.m in Sources */ = {isa = PBXBuildFile; fileRef = 353065A91321DA9A00CC6332 /* ImageRequestor.m */; };
 		353066C91323173B00CC6332 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 353066C71323173B00CC6332 /* icon@2x.png */; };
@@ -47,6 +48,7 @@
 		28C286E00D94DF7D0034E888 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		28F335F01007B36200424DE2 /* RootViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = RootViewController.xib; path = ../RootViewController.xib; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		35100F401482BE99004B07A8 /* play-btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play-btn.png"; sourceTree = "<group>"; };
 		353065A61321DA9A00CC6332 /* FeedRequestor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedRequestor.h; sourceTree = "<group>"; };
 		353065A71321DA9A00CC6332 /* FeedRequestor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedRequestor.m; sourceTree = "<group>"; };
 		353065A81321DA9A00CC6332 /* ImageRequestor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageRequestor.h; path = Classes/ImageRequestor.h; sourceTree = SOURCE_ROOT; };
@@ -161,6 +163,7 @@
 				353067F613233B0200CC6332 /* TED-bg.png */,
 				353067B4132330E700CC6332 /* TED-logo-sm.png */,
 				35987C2413402FB9002AE7DE /* TED-logo.png */,
+				35100F401482BE99004B07A8 /* play-btn.png */,
 				358C37A71324BFD3007D7DAA /* featured-talk-bg.png */,
 				35987C09134009A6002AE7DE /* miniHeading-bg.png */,
 				35987C3113404B63002AE7DE /* loading-bg.png */,
@@ -275,6 +278,7 @@
 				35987C2613402FB9002AE7DE /* TED-logo.png in Resources */,
 				35987C3213404B63002AE7DE /* loading-bg.png in Resources */,
 				A200D450136872A80071929C /* SelectedViewController.xib in Resources */,
+				35100F411482BE99004B07A8 /* play-btn.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
