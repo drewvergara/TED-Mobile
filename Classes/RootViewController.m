@@ -22,11 +22,14 @@ int counter = 1;
 
 #pragma mark -
 #pragma mark View lifecycle
-
-
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
+    NSLog(@"root view did load");
+
+	TEDAppDelegate *appdelegate = (TEDAppDelegate *)[[UIApplication sharedApplication] delegate];
+	[appdelegate saveRootViewControllerHolder:self];
+        
 	self.navigationController.navigationBar.hidden = NO;
 	    
 	UIImageView *imgView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"TED-logo-sm.png"]] autorelease];
@@ -39,10 +42,57 @@ int counter = 1;
 
 	[self buildOverlay];
 
-	videoView.frame = CGRectMake(0, 60, videoView.frame.size.width, videoView.frame.size.height);
+//    self.videoView = [[UIView alloc] init];
+    
+//	self.videoView.frame = CGRectMake(0, 60, self.videoView.frame.size.width, self.videoView.frame.size.height);
 	
-    scrollView.contentSize = CGSizeMake(videoView.frame.size.width, 3700.0);
+    self.videoView.center = CGPointMake(self.videoView.center.x, self.videoView.center.y + 60);
+    
+    scrollView.contentSize = CGSizeMake(self.videoView.frame.size.width, 3700.0);
 
+    [self createInterface];
+}
+
+/*
+ - (void)viewWillAppear:(BOOL)animated {
+ [super viewWillAppear:animated];
+ }
+ */
+
+/*
+ - (void)viewDidAppear:(BOOL)animated {
+ [super viewDidAppear:animated];
+ }
+ */
+/*
+ - (void)viewWillDisappear:(BOOL)animated {
+ [super viewWillDisappear:animated];
+ }
+ */
+/*
+ - (void)viewDidDisappear:(BOOL)animated {
+ [super viewDidDisappear:animated];
+ }
+ */
+
+- (void)recreateInterface
+{    
+    self.videoView = [[UIView alloc] init];
+	
+//    self.videoView.frame = CGRectMake(0, 124, self.videoView.frame.size.width, self.videoView.frame.size.height);
+//	
+//    scrollView.contentSize = CGSizeMake(self.videoView.frame.size.width, 3700.0);
+
+    self.videoView.center = CGPointMake(self.videoView.center.x, self.videoView.center.y + 60);    
+    
+    [self.view addSubview:self.videoView];
+    [self.view addSubview:scrollView];    
+    
+    [self createInterface];
+}
+
+- (void)createInterface
+{
 	[[OpenNC getInstance] getFeed:self callback:@selector(showResults:) parameters:nil];
 }
 
@@ -73,7 +123,7 @@ int counter = 1;
 	//[UIView setAnimationDelegate:self];
 	//[UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
 	
-	videoView.alpha = 1.0;
+	self.videoView.alpha = 1.0;
 	
 	[UIView commitAnimations];
 	
@@ -140,8 +190,8 @@ int counter = 1;
 	heading.numberOfLines = 0;
 	[scrollView addSubview:heading];
 	
-	[self.view addSubview:videoView];
-	videoView.alpha = 0.0;
+	[self.view addSubview:self.videoView];
+	self.videoView.alpha = 0.0;
     
     initialMovieDictionary = [[NSMutableDictionary alloc] init];
     
@@ -255,28 +305,17 @@ int counter = 1;
 	[selectedView release];
 }
 
-/*
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+- (void)resetViewController
+{
+    NSLog(@"self.videoView count: %d", [self.videoView retainCount]);
+    counter = 1;
+    
+    [scrollView removeFromSuperview];
+    [self.videoView removeFromSuperview];
+    
+//    [self.videoView release];
+//    self.videoView = nil;
 }
-*/
-
-/*
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-}
-*/
-/*
-- (void)viewWillDisappear:(BOOL)animated {
-	[super viewWillDisappear:animated];
-}
-*/
-/*
-- (void)viewDidDisappear:(BOOL)animated {
-	[super viewDidDisappear:animated];
-}
-*/
-
 
  // Override to allow orientations other than the default portrait orientation.
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -286,7 +325,6 @@ int counter = 1;
 
 #pragma mark -
 #pragma mark Memory management
-
 - (void)didReceiveMemoryWarning {
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
@@ -304,7 +342,7 @@ int counter = 1;
     [super dealloc];
     
     [overlayView release]; 
-    [videoView release];
+    [self.videoView release];
     [overlayBGImageView release]; 
     [loadingView release];
     [featuredTalk release];

@@ -15,7 +15,7 @@
 @synthesize loadingView;
 @synthesize selectedData;
 @synthesize activityIndicator, selectedTalkBtn, selectedTalkBg, selectedTalkDescription;
-@synthesize talkBtn, playBtn;
+@synthesize talkBtn, playBtn, loadVideoOverlay;
 
 -(BOOL)reachable {
     Reachability *r = [Reachability reachabilityWithHostName:@"google.com"];
@@ -23,7 +23,7 @@
     if(internetStatus != ReachableViaWiFi) {
         return NO;
     }
-	return YES;
+	return NO;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -78,39 +78,44 @@
 	UIImage *fullImage = [image objectForKey:@"image"];
 
 	[selectedTalkBtn setImage:fullImage];
-//	[selectedTalkBtn setBackgroundImage:fullImage forState:UIControlStateNormal];
-//    selectedTalkBtn.enabled = NO;
 	
 	[image release];
 
+    UILabel *noToPlay = [[UILabel alloc] initWithFrame:CGRectMake(10, 12, 300, 20)];    
+    
     NSArray* durationSplit = [[selectedData objectForKey:@"duration"] componentsSeparatedByString: @":"];
     NSString* durationMinute = [durationSplit objectAtIndex: 1];
     int minuteInt = [durationMinute intValue];
     
     //Click to Play
-    if ([self reachable] || minuteInt < 10) {	
-//        UILabel *clickToPlay = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 300, 20)];
-//        clickToPlay.textAlignment = UITextAlignmentCenter;
-//        clickToPlay.textColor = [UIColor whiteColor];
-//        clickToPlay.font = [UIFont boldSystemFontOfSize:14.0];
-//        clickToPlay.backgroundColor = [UIColor clearColor];
-//        clickToPlay.shadowColor = [UIColor blackColor];
-//        clickToPlay.text = @"(tap to play)";
-//        clickToPlay.numberOfLines = 0;
-//        [self.view addSubview:clickToPlay];
-//        clickToPlay.alpha = 0.0;
-        
-        [UIView beginAnimations:nil context:nil];
-        [UIView setAnimationDuration:0.2];
-        [UIView setAnimationDelegate:self];
-        [UIView setAnimationDelay:0.2];
-        playBtn.transform = CGAffineTransformMakeTranslation(0, 10.0);
-        playBtn.alpha = 1.0;
-        [UIView commitAnimations];
-//        selectedTalkBtn.enabled = YES;
+    if ([self reachable] || minuteInt < 10) {
         playBtn.userInteractionEnabled = YES;
         talkBtn.userInteractionEnabled = YES;        
+    }else {
+        noToPlay.textAlignment = UITextAlignmentCenter;
+        noToPlay.textColor = [UIColor whiteColor];
+        noToPlay.font = [UIFont boldSystemFontOfSize:14.0];
+        noToPlay.backgroundColor = [UIColor clearColor];
+        noToPlay.shadowColor = [UIColor blackColor];
+        noToPlay.shadowOffset = CGSizeMake(1.0, 1.0);
+        noToPlay.text = @"(video unavailable over cellular network)";
+        noToPlay.numberOfLines = 0;
+        [self.view addSubview:noToPlay];
+        noToPlay.alpha = 0.0;
+        
+        UIImage *noPlayBtnImage = [UIImage imageNamed:@"noplay-btn.png"];
+        [playBtn setImage:noPlayBtnImage forState:UIControlStateNormal];        
     }
+
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.2];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDelay:0.2];
+    playBtn.transform = CGAffineTransformMakeTranslation(0, 10.0);
+    playBtn.alpha = 1.0;
+    noToPlay.alpha = 1.0;
+    [UIView commitAnimations];
+    
     
     //Talk Subtitle
 	UILabel *heading = [[UILabel alloc] initWithFrame:CGRectMake(15, 182, 290, 50)];
@@ -125,11 +130,100 @@
     activityIndicator.hidden = YES;
 }
 
+
+#pragma mark - User Interactions
 - (IBAction)playSelectedTalk:(id)sender
-{
-	TEDAppDelegate *appdelegate = (TEDAppDelegate *)[[UIApplication sharedApplication] delegate];
-	[appdelegate prepMoviePlayer:[selectedData objectForKey:@"videoURL"] loadingView:loadingView];
+{    
+    [self prepMoviePlayer:[selectedData objectForKey:@"videoURL"] loadingView:loadingView];
 }
+
+
+#pragma mark - MoviePlayer
+- (void)prepMoviePlayer:(NSString *)movieName loadingView:(UIView *)loadingOverlay
+{
+    loadVideoOverlay = loadingOverlay;
+    
+    loadVideoOverlay.center = CGPointMake(160, 226);
+    [self.view addSubview:loadVideoOverlay];
+    
+    loadVideoOverlay.alpha = 0.0;
+    
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.3];
+    [UIView setAnimationDelegate:self];
+    loadVideoOverlay.transform = CGAffineTransformMakeTranslation(0, -20.0);
+    loadVideoOverlay.alpha = 1.0;
+    [UIView commitAnimations];    
+    
+    self.view.userInteractionEnabled = NO;
+    
+	NSBundle *bundle = [NSBundle mainBundle];
+	if (bundle) {		
+		//NSString *moviePath = [bundle pathForResource:movieName ofType:@"mp4"];
+        //		NSLog(@"%@", movieName);
+        //		NSLog(@"%@", moviePath);
+		if (movieName){
+			
+            NSURL* videoURL = [NSURL URLWithString:movieName];
+
+            moviePlayerController= [[MPMoviePlayerViewController alloc] initWithContentURL:videoURL];
+            moviePlayer = [moviePlayerController moviePlayer];
+			[moviePlayer setFullscreen:YES];
+			moviePlayer.scalingMode = MPMovieScalingModeAspectFit;			
+			moviePlayer.controlStyle = MPMovieControlStyleFullscreen;
+			moviePlayer.view.backgroundColor = [UIColor blackColor]; 
+
+			[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayerLoadStateChanged:) name:MPMoviePlayerLoadStateDidChangeNotification object:nil];
+			[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(movieDidFinish:) name:MPMoviePlayerPlaybackDidFinishNotification object:nil];
+		}
+	}
+}
+
+- (void)moviePlayerLoadStateChanged:(NSNotification *)notification
+{
+	if ([moviePlayer loadState] != MPMovieLoadStateUnknown) {        
+
+        moviePlayer.view.alpha = 0.0;
+        
+        self.view.userInteractionEnabled = YES;
+        [loadVideoOverlay removeFromSuperview];
+        
+        [UIView beginAnimations:@"playVideo" context:nil];
+        [UIView setAnimationDelay:0.0];
+        [UIView setAnimationDuration:1.0];
+        [UIView setAnimationDelegate:self];
+        [UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
+        
+        moviePlayer.view.alpha = 1.0;
+        
+        [UIView commitAnimations];
+
+        [self presentMoviePlayerViewControllerAnimated:moviePlayerController];
+        
+		[[NSNotificationCenter defaultCenter] removeObserver:self name:MPMoviePlayerLoadStateDidChangeNotification object:nil];
+	}		
+	
+}
+
+- (void)movieDidFinish:(NSNotification*)notification
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MPMoviePlayerPlaybackDidFinishNotification object:nil];
+    
+    [moviePlayer stop];
+    
+    [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationPortrait];
+    
+    [UIView beginAnimations:@"stopVideo" context:nil];
+    [UIView setAnimationDelay:0.0];
+    [UIView setAnimationDuration:1.0];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
+    
+    moviePlayer.view.alpha = 0.0;
+    
+    [UIView commitAnimations];
+}
+
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -138,7 +232,6 @@
 }
 
 #pragma mark Memory Management
-
 - (void)didReceiveMemoryWarning
 {
     // Releases the view if it doesn't have a superview.
@@ -154,6 +247,7 @@
     [selectedTalkBtn release];
     [selectedTalkBg release]; 
     [selectedTalkDescription release];
+    [moviePlayerController release];
 }
 
 @end

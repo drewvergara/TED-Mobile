@@ -34,7 +34,11 @@
 @property (nonatomic, retain) NSMutableDictionary *initialMovieDictionary;
 @property (nonatomic, retain) NSString *mainMovie;
 
+- (void)recreateInterface;
+- (void)createInterface;
 - (void)buildOverlay;
 - (void)createTalkView:(NSArray *)data;
 - (IBAction)featuredTalk:(id)sender;
+- (void)resetViewController;
+
 @end

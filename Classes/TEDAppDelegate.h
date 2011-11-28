@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import <MediaPlayer/MediaPlayer.h>
 
+#import "RootViewController.h"
+
 @class MPMoviePlayerController;
 
 @interface TEDAppDelegate : NSObject <UIApplicationDelegate> {
@@ -17,7 +19,8 @@
     UINavigationController *navigationController;
  
     UIView *introOverlay;
-    UIView *loadVideoOverlay;
+    
+    RootViewController *rootViewControllerHolder;
     
     MPMoviePlayerController *moviePlayer;
 }
@@ -25,11 +28,11 @@
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) IBOutlet UINavigationController *navigationController;
 @property (nonatomic, retain) UIView *introOverlay;
-@property (nonatomic, retain) UIView *loadVideoOverlay;
+@property (nonatomic, retain) RootViewController *rootViewControllerHolder;
 
+- (void)saveRootViewControllerHolder:(RootViewController *)controller;
 - (void)addOverlay:(UIView *)overlay;
 - (void)removeOverlay;
-- (void)prepMoviePlayer:(NSString *)movieName loadingView:(UIView *)loadingOverlay;
 
 @end
 

@@ -22,6 +22,7 @@
 		353066CA1323173B00CC6332 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 353066C81323173B00CC6332 /* icon.png */; };
 		353067B5132330E700CC6332 /* TED-logo-sm.png in Resources */ = {isa = PBXBuildFile; fileRef = 353067B4132330E700CC6332 /* TED-logo-sm.png */; };
 		353067F713233B0200CC6332 /* TED-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 353067F613233B0200CC6332 /* TED-bg.png */; };
+		358639451482FD9300C1645A /* noplay-btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 358639441482FD9300C1645A /* noplay-btn.png */; };
 		358C37A81324BFD3007D7DAA /* featured-talk-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 358C37A71324BFD3007D7DAA /* featured-talk-bg.png */; };
 		35987C0A134009A6002AE7DE /* miniHeading-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 35987C09134009A6002AE7DE /* miniHeading-bg.png */; };
 		35987C2513402FB9002AE7DE /* launch.png in Resources */ = {isa = PBXBuildFile; fileRef = 35987C2313402FB9002AE7DE /* launch.png */; };
@@ -57,6 +58,7 @@
 		353066C81323173B00CC6332 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = SOURCE_ROOT; };
 		353067B4132330E700CC6332 /* TED-logo-sm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TED-logo-sm.png"; sourceTree = SOURCE_ROOT; };
 		353067F613233B0200CC6332 /* TED-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TED-bg.png"; sourceTree = SOURCE_ROOT; };
+		358639441482FD9300C1645A /* noplay-btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "noplay-btn.png"; sourceTree = "<group>"; };
 		358C37A71324BFD3007D7DAA /* featured-talk-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "featured-talk-bg.png"; sourceTree = SOURCE_ROOT; };
 		35987C09134009A6002AE7DE /* miniHeading-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "miniHeading-bg.png"; sourceTree = "<group>"; };
 		35987C2313402FB9002AE7DE /* launch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launch.png; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 				353067B4132330E700CC6332 /* TED-logo-sm.png */,
 				35987C2413402FB9002AE7DE /* TED-logo.png */,
 				35100F401482BE99004B07A8 /* play-btn.png */,
+				358639441482FD9300C1645A /* noplay-btn.png */,
 				358C37A71324BFD3007D7DAA /* featured-talk-bg.png */,
 				35987C09134009A6002AE7DE /* miniHeading-bg.png */,
 				35987C3113404B63002AE7DE /* loading-bg.png */,
@@ -279,6 +282,7 @@
 				35987C3213404B63002AE7DE /* loading-bg.png in Resources */,
 				A200D450136872A80071929C /* SelectedViewController.xib in Resources */,
 				35100F411482BE99004B07A8 /* play-btn.png in Resources */,
+				358639451482FD9300C1645A /* noplay-btn.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -343,8 +347,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PREBINDING = NO;
-				PROVISIONING_PROFILE = "E2DE5A2A-85E0-4BD4-BD9E-05F0D0F7DCF2";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E2DE5A2A-85E0-4BD4-BD9E-05F0D0F7DCF2";
+				PROVISIONING_PROFILE = "11ED215A-5FAE-47DE-9C09-14F0F4848F30";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "11ED215A-5FAE-47DE-9C09-14F0F4848F30";
 				SDKROOT = iphoneos;
 			};
 			name = Development;

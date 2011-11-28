@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MediaPlayer/MediaPlayer.h>
+
 #import "Reachability.h"
+
+@class MPMoviePlayerViewController, MPMoviePlayerController;
 
 @interface SelectedViewController : UIViewController {
  	IBOutlet UIView *loadingView;
@@ -20,6 +24,11 @@
     IBOutlet UIImageView *selectedTalkBtn;
     IBOutlet UIImageView *selectedTalkBg;
     IBOutlet UITextView *selectedTalkDescription;
+
+    UIView *loadVideoOverlay;    
+    
+    MPMoviePlayerController *moviePlayer;
+    MPMoviePlayerViewController *moviePlayerController;
 }
 @property (nonatomic, retain) IBOutlet UIView *loadingView;
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView *activityIndicator;
@@ -29,7 +38,9 @@
 @property (nonatomic, retain) IBOutlet UIImageView *selectedTalkBtn;
 @property (nonatomic, retain) IBOutlet UIImageView *selectedTalkBg;
 @property (nonatomic, retain) IBOutlet UITextView *selectedTalkDescription;
+@property (nonatomic, retain) UIView *loadVideoOverlay;
 
 - (IBAction)playSelectedTalk:(id)sender;
+- (void)prepMoviePlayer:(NSString *)movieName loadingView:(UIView *)loadingOverlay;
 
 @end

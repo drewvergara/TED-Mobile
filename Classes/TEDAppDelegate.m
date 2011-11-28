@@ -14,7 +14,7 @@
 
 @synthesize window;
 @synthesize navigationController;
-@synthesize introOverlay, loadVideoOverlay;
+@synthesize introOverlay, rootViewControllerHolder;
 
 #pragma mark -
 #pragma mark Application lifecycle
@@ -47,13 +47,18 @@
      Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
      If your application supports background execution, called instead of applicationWillTerminate: when the user quits.
      */
+    
+    
+//    [self.navigationController popToRootViewControllerAnimated:YES];
+//    [self.rootViewControllerHolder resetViewController];
 }
-
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     /*
      Called as part of  transition from the background to the inactive state: here you can undo many of the changes made on entering the background.
      */
+    
+    [self.rootViewControllerHolder recreateInterface];
 }
 
 
@@ -72,8 +77,13 @@
 }
 
 
-#pragma mark -
-#pragma mark Intro Overlay
+#pragma mark - View Controller Properties
+- (void)saveRootViewControllerHolder:(RootViewController *)controller
+{
+    self.rootViewControllerHolder = controller;
+}
+
+#pragma mark - Intro Overlay
 - (void)addOverlay:(UIView *)overlay
 {
     introOverlay = overlay;
@@ -98,116 +108,9 @@
 
 - (void)animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
 {
-
     if ([animationID isEqualToString:@"removeOverlay"]) {
         [introOverlay removeFromSuperview];
     }
-    
-    if ([animationID isEqualToString:@"playVideo"]) {
-        [moviePlayer play];
-    }
-    
-    if ([animationID isEqualToString:@"stopVideo"]) {    
-        [moviePlayer.view removeFromSuperview];
-        
-        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:NO];
-        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent animated:YES];
-        
-        [moviePlayer release];
-    }
-
-}
-
-#pragma mark -
-#pragma mark MoviePlayer
-
-- (void)prepMoviePlayer:(NSString *)movieName loadingView:(UIView *)loadingOverlay
-{
-    loadVideoOverlay = loadingOverlay;
-    
-    loadVideoOverlay.center = CGPointMake(160, 290);
-    [self.window addSubview:loadVideoOverlay];
-
-    loadVideoOverlay.alpha = 0.0;
-    
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:0.3];
-    [UIView setAnimationDelegate:self];
-    loadVideoOverlay.transform = CGAffineTransformMakeTranslation(0, -20.0);
-    loadVideoOverlay.alpha = 1.0;
-    [UIView commitAnimations];    
-    
-    self.window.userInteractionEnabled = NO;
-    
-	NSBundle *bundle = [NSBundle mainBundle];
-	if (bundle) {		
-		//NSString *moviePath = [bundle pathForResource:movieName ofType:@"mp4"];
-//		NSLog(@"%@", movieName);
-//		NSLog(@"%@", moviePath);
-		if (movieName){
-			
-            NSURL* videoURL = [NSURL URLWithString:movieName];
-			moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:videoURL];
-			//[moviePlayer setFullscreen:YES];
-			moviePlayer.scalingMode = MPMovieScalingModeAspectFit;
-            
-			CGAffineTransform transform = CGAffineTransformMakeRotation(90 * (M_PI / 180));
-			moviePlayer.view.transform = transform;			
-			[moviePlayer.view setFrame:CGRectMake(0, 0, 320 , 480)];
-			
-			moviePlayer.controlStyle = MPMovieControlStyleFullscreen;
-			
-			moviePlayer.view.backgroundColor = [UIColor blackColor]; 
-            
-			[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayerLoadStateChanged:) name:MPMoviePlayerLoadStateDidChangeNotification object:nil];
-			[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(movieDidFinish:) name:MPMoviePlayerPlaybackDidFinishNotification object:nil];
-		}
-	}
-}
-
-- (void)moviePlayerLoadStateChanged:(NSNotification *)notification
-{
-	if ([moviePlayer loadState] != MPMovieLoadStateUnknown) {
-        [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationLandscapeRight];
-        [self.window addSubview:moviePlayer.view];
-
-        moviePlayer.view.alpha = 0.0;        
-        
-        self.window.userInteractionEnabled = YES;
-        [loadVideoOverlay removeFromSuperview];
-        
-        [UIView beginAnimations:@"playVideo" context:nil];
-        [UIView setAnimationDelay:0.0];
-        [UIView setAnimationDuration:1.0];
-        [UIView setAnimationDelegate:self];
-        [UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
-        
-        moviePlayer.view.alpha = 1.0;
-        
-        [UIView commitAnimations];
-
-		[[NSNotificationCenter defaultCenter] removeObserver:self name:MPMoviePlayerLoadStateDidChangeNotification object:nil];
-	}		
-	
-}
-
-- (void)movieDidFinish:(NSNotification*)notification
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:MPMoviePlayerPlaybackDidFinishNotification object:nil];
-    
-    [moviePlayer stop];
-    
-    [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationPortrait];
-
-    [UIView beginAnimations:@"stopVideo" context:nil];
-    [UIView setAnimationDelay:0.0];
-    [UIView setAnimationDuration:1.0];
-    [UIView setAnimationDelegate:self];
-    [UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
-    
-    moviePlayer.view.alpha = 0.0;
-    
-    [UIView commitAnimations];
 }
 
 
