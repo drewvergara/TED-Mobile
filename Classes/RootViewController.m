@@ -298,6 +298,8 @@ int counter = 1;
 - (void)resetViewController
 {
     counter = 1;
+
+    heading.text = @"";
     
     [self.scrollView removeFromSuperview];
     [self.videoView removeFromSuperview];    
