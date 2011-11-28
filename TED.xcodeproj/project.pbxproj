@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 45;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -28,6 +28,7 @@
 		35987C2513402FB9002AE7DE /* launch.png in Resources */ = {isa = PBXBuildFile; fileRef = 35987C2313402FB9002AE7DE /* launch.png */; };
 		35987C2613402FB9002AE7DE /* TED-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 35987C2413402FB9002AE7DE /* TED-logo.png */; };
 		35987C3213404B63002AE7DE /* loading-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 35987C3113404B63002AE7DE /* loading-bg.png */; };
+		359C622A14837C9700321BB3 /* VideoListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 359C622914837C9700321BB3 /* VideoListViewController.m */; };
 		35E55E4A1321D812009C228F /* OpenNC.m in Sources */ = {isa = PBXBuildFile; fileRef = 35E55E491321D812009C228F /* OpenNC.m */; };
 		35E68ACA13DD1438006A48C8 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 35E68AC913DD1438006A48C8 /* Reachability.m */; };
 		35E68ACD13DD1584006A48C8 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35E68ACC13DD1584006A48C8 /* SystemConfiguration.framework */; };
@@ -64,6 +65,8 @@
 		35987C2313402FB9002AE7DE /* launch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launch.png; sourceTree = "<group>"; };
 		35987C2413402FB9002AE7DE /* TED-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TED-logo.png"; sourceTree = "<group>"; };
 		35987C3113404B63002AE7DE /* loading-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "loading-bg.png"; sourceTree = "<group>"; };
+		359C622814837C9700321BB3 /* VideoListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoListViewController.h; sourceTree = "<group>"; };
+		359C622914837C9700321BB3 /* VideoListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoListViewController.m; sourceTree = "<group>"; };
 		35E55E481321D812009C228F /* OpenNC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OpenNC.h; path = Classes/OpenNC.h; sourceTree = SOURCE_ROOT; };
 		35E55E491321D812009C228F /* OpenNC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OpenNC.m; path = Classes/OpenNC.m; sourceTree = SOURCE_ROOT; };
 		35E68AC813DD1438006A48C8 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
@@ -116,7 +119,6 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				35E68ACC13DD1584006A48C8 /* SystemConfiguration.framework */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -155,6 +157,7 @@
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */,
+				35E68ACC13DD1584006A48C8 /* SystemConfiguration.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -180,8 +183,18 @@
 				28C286DF0D94DF7D0034E888 /* RootViewController.h */,
 				28C286E00D94DF7D0034E888 /* RootViewController.m */,
 				28F335F01007B36200424DE2 /* RootViewController.xib */,
+				359C622714837C5C00321BB3 /* VideoListViewController */,
 			);
 			name = "Root View Controller";
+			sourceTree = "<group>";
+		};
+		359C622714837C5C00321BB3 /* VideoListViewController */ = {
+			isa = PBXGroup;
+			children = (
+				359C622814837C9700321BB3 /* VideoListViewController.h */,
+				359C622914837C9700321BB3 /* VideoListViewController.m */,
+			);
+			name = VideoListViewController;
 			sourceTree = "<group>";
 		};
 		35E55E3D1321D7F7009C228F /* OpenNC */ = {
@@ -242,10 +255,11 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastUpgradeCheck = 0420;
 				ORGANIZATIONNAME = "Studio Noodlehouse";
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "TED" */;
-			compatibilityVersion = "Xcode 3.1";
+			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
@@ -301,6 +315,7 @@
 				353065AB1321DA9A00CC6332 /* ImageRequestor.m in Sources */,
 				A200D44F136872A80071929C /* SelectedViewController.m in Sources */,
 				35E68ACA13DD1438006A48C8 /* Reachability.m in Sources */,
+				359C622A14837C9700321BB3 /* VideoListViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -311,11 +326,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = TED_Prefix.pch;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "TED-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = TED;
@@ -326,9 +343,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = TED_Prefix.pch;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "TED-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = TED;
@@ -346,7 +365,6 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				PREBINDING = NO;
 				PROVISIONING_PROFILE = "11ED215A-5FAE-47DE-9C09-14F0F4848F30";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "11ED215A-5FAE-47DE-9C09-14F0F4848F30";
 				SDKROOT = iphoneos;
@@ -357,11 +375,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = TED_Prefix.pch;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "TED-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = TED;
@@ -377,7 +397,6 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				PREBINDING = NO;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -393,7 +412,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PREBINDING = NO;
 				PROVISIONING_PROFILE = "41B60D05-E244-4B17-B93B-61B6F2F2928D";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "41B60D05-E244-4B17-B93B-61B6F2F2928D";
 				SDKROOT = iphoneos;

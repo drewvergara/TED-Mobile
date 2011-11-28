@@ -20,11 +20,6 @@ static OpenNC *sharedInstance = nil;
 - (void)dealloc
 {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	[masterSettings release];
-	[baseURL release];
-	[imageCache release];
-	[queue release];
-	[super dealloc];
 }
 
 
@@ -56,7 +51,6 @@ static OpenNC *sharedInstance = nil;
 		//Cache of images already retrieved from network or disk...no need to do it twice
 		NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
 		self.imageCache = dic;
-		[dic release];
 		
 		//Register to receive memory warnings, so the image cache can be flushed to free memory
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleMemoryWarning:) name: UIApplicationDidReceiveMemoryWarningNotification object:nil];		
@@ -90,12 +84,10 @@ static OpenNC *sharedInstance = nil;
 			[result setObject:context forKey:@"context"];
 		//Send data back to the caller
 		[caller performSelector:callback withObject:result];
-		[result release];
 	}else{
 		//Get asynchronously from disk or network
 		ImageRequestor *imgRequest = [[ImageRequestor alloc] startWithURL:url caller:caller callback:callback context:context];
 		[queue addOperation:imgRequest];
-		[imgRequest release];		
 	}
 }
 
@@ -104,7 +96,6 @@ static OpenNC *sharedInstance = nil;
 //    to let OpenNC know it can be 'released'.
 
 - (void) releaseMe:(NSObject *)retainedObject {
-	[retainedObject release];
 }
 
 #pragma mark - TED Feed Data
@@ -112,7 +103,6 @@ static OpenNC *sharedInstance = nil;
 - (void)getFeed:(NSObject *)caller callback:(SEL)callback parameters:(NSDictionary *)parameters {
 	FeedRequestor *feedRequestor = [[FeedRequestor alloc] initForFeed:caller callback:callback];
 	[queue addOperation:feedRequestor];
-	[feedRequestor release];
 }
 
 @end

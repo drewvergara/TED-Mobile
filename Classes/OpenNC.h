@@ -26,8 +26,8 @@ typedef id <OpenNCListener> OpenNCListenerRef;
 	SEL callbackToCall;
 	
 }
-@property (nonatomic, retain) NSDictionary *masterSettings;
-@property (nonatomic, retain) NSMutableDictionary *imageCache;
+@property (nonatomic, strong) NSDictionary *masterSettings;
+@property (nonatomic, strong) NSMutableDictionary *imageCache;
 @property (readonly) BOOL ready;
 
 

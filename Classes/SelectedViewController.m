@@ -42,7 +42,7 @@
     
 	self.navigationController.navigationBar.hidden = NO;
     
-	UIImageView *imgView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"TED-logo-sm.png"]] autorelease];
+	UIImageView *imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"TED-logo-sm.png"]];
 	[imgView setContentMode:UIViewContentModeScaleAspectFit];
 	[imgView setFrame:CGRectMake(0, 0, 50, 17.5)];
 	self.navigationItem.titleView = imgView;
@@ -70,7 +70,6 @@
 }
 
 - (void)displayMainImage:(NSDictionary *)image {	
-    [image retain];
     
     playBtn.hidden = NO;
     selectedTalkBg.hidden = NO;
@@ -79,7 +78,6 @@
 
 	[selectedTalkBtn setImage:fullImage];
 	
-	[image release];
 
     UILabel *noToPlay = [[UILabel alloc] initWithFrame:CGRectMake(10, 12, 300, 20)];    
     
@@ -240,14 +238,5 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
-- (void)dealloc
-{
-    [super dealloc];
-    [activityIndicator release];
-    [selectedTalkBtn release];
-    [selectedTalkBg release]; 
-    [selectedTalkDescription release];
-    [moviePlayerController release];
-}
 
 @end

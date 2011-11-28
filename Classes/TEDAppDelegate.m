@@ -49,8 +49,8 @@
      */
     
     
-//    [self.navigationController popToRootViewControllerAnimated:YES];
-//    [self.rootViewControllerHolder resetViewController];
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self.rootViewControllerHolder resetViewController];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
@@ -124,11 +124,6 @@
 }
 
 
-- (void)dealloc {
-	[navigationController release];
-	[window release];
-	[super dealloc];
-}
 
 
 @end

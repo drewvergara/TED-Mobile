@@ -30,15 +30,15 @@
     MPMoviePlayerController *moviePlayer;
     MPMoviePlayerViewController *moviePlayerController;
 }
-@property (nonatomic, retain) IBOutlet UIView *loadingView;
-@property (nonatomic, retain) IBOutlet UIActivityIndicatorView *activityIndicator;
-@property (nonatomic, retain) IBOutlet UIButton *talkBtn;
-@property (nonatomic, retain) IBOutlet UIButton *playBtn;
-@property (nonatomic, retain) NSDictionary *selectedData;
-@property (nonatomic, retain) IBOutlet UIImageView *selectedTalkBtn;
-@property (nonatomic, retain) IBOutlet UIImageView *selectedTalkBg;
-@property (nonatomic, retain) IBOutlet UITextView *selectedTalkDescription;
-@property (nonatomic, retain) UIView *loadVideoOverlay;
+@property (nonatomic, strong) IBOutlet UIView *loadingView;
+@property (nonatomic, strong) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (nonatomic, strong) IBOutlet UIButton *talkBtn;
+@property (nonatomic, strong) IBOutlet UIButton *playBtn;
+@property (nonatomic, strong) NSDictionary *selectedData;
+@property (nonatomic, strong) IBOutlet UIImageView *selectedTalkBtn;
+@property (nonatomic, strong) IBOutlet UIImageView *selectedTalkBg;
+@property (nonatomic, strong) IBOutlet UITextView *selectedTalkDescription;
+@property (nonatomic, strong) UIView *loadVideoOverlay;
 
 - (IBAction)playSelectedTalk:(id)sender;
 - (void)prepMoviePlayer:(NSString *)movieName loadingView:(UIView *)loadingOverlay;

@@ -13,11 +13,6 @@
 
 @synthesize filename, url;
 
-- (void)dealloc {
-	[url release];
-	[filename release];
-    [super dealloc];
-}
 
 - (id) startWithURL:(NSString *)imageurl caller:(NSObject *)caller callback:(SEL)callback context:(NSObject *)ctx {
     if (self == [super init]) {
@@ -26,15 +21,13 @@
 		self.url = imageurl;
 		
 		requestor = caller;
-		if (requestor)
-			[requestor retain];  //Retain the requestor in case it gets popped off while image is being retrieved (or go 'boom').
+		  //Retain the requestor in case it gets popped off while image is being retrieved (or go 'boom').
 		
 		requestorCallback = callback;
 		
 		if (ctx){
 			ctxObject = ctx;
 		}
-		[ctxObject retain];
 		
 		
 	}
@@ -64,7 +57,6 @@
 		//Send data back to the caller
 		if (requestor){
 			[requestor performSelectorOnMainThread:requestorCallback withObject:[NSDictionary dictionaryWithObject:strError forKey:@"error"] waitUntilDone:NO];
-			[requestor release];
 		}
 		
 	}
@@ -102,8 +94,6 @@
 	
 	//Send data back to the caller
 	[requestor performSelectorOnMainThread:requestorCallback withObject:result waitUntilDone:NO];
-	[requestor release];
-	[result release];
 	
 	
 	
@@ -163,11 +153,8 @@
 	if (requestor){
 		//[requestor performSelector:requestorCallback withObject:result];
 		[requestor performSelectorOnMainThread:requestorCallback withObject:result waitUntilDone:NO];
-		[requestor release];
 	}
 	
-	[ctxObject release];
-	[result release];
 	
 	
 }

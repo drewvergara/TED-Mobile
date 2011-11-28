@@ -29,8 +29,8 @@
 	NSString *url;
 }
 
-@property (nonatomic, retain) NSString *filename;
-@property (nonatomic, retain) NSString *url;
+@property (nonatomic, strong) NSString *filename;
+@property (nonatomic, strong) NSString *url;
 
 - (id) startWithURL:(NSString *)url caller:(NSObject *)caller callback:(SEL)callback context:(NSObject *)ctx;
 - (BOOL)existsInCache:(NSString *)imageName;

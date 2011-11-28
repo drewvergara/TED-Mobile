@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "VideoListViewController.h"
 
-@interface RootViewController : UIViewController {
+@interface RootViewController : UIViewController <UIScrollViewDelegate, VideoListViewDelegate>{
 	IBOutlet UIView *overlayView;
 	IBOutlet UIView *videoView;
 	IBOutlet UIView *loadingView;
@@ -24,15 +25,15 @@
     
     NSString *mainMovie;	
 }
-@property (nonatomic, retain) IBOutlet UIView *overlayView; 
-@property (nonatomic, retain) IBOutlet UIView *videoView;
-@property (nonatomic, retain) IBOutlet UIView *loadingView;
-@property (nonatomic, retain) UIImageView *overlayBGImageView;
-@property (nonatomic, retain) IBOutlet UIButton *featuredTalk;
-@property (nonatomic, retain) IBOutlet UIScrollView *scrollView;
-@property (nonatomic, retain) NSMutableArray *dataArray;
-@property (nonatomic, retain) NSMutableDictionary *initialMovieDictionary;
-@property (nonatomic, retain) NSString *mainMovie;
+@property (nonatomic, strong) IBOutlet UIView *overlayView; 
+@property (nonatomic, strong) IBOutlet UIView *videoView;
+@property (nonatomic, strong) IBOutlet UIView *loadingView;
+@property (nonatomic, strong) UIImageView *overlayBGImageView;
+@property (nonatomic, strong) IBOutlet UIButton *featuredTalk;
+@property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
+@property (nonatomic, strong) NSMutableArray *dataArray;
+@property (nonatomic, strong) NSMutableDictionary *initialMovieDictionary;
+@property (nonatomic, strong) NSString *mainMovie;
 
 - (void)recreateInterface;
 - (void)createInterface;

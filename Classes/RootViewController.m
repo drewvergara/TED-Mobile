@@ -32,7 +32,7 @@ int counter = 1;
         
 	self.navigationController.navigationBar.hidden = NO;
 	    
-	UIImageView *imgView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"TED-logo-sm.png"]] autorelease];
+	UIImageView *imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"TED-logo-sm.png"]];
 	[imgView setContentMode:UIViewContentModeScaleAspectFit];
 	[imgView setFrame:CGRectMake(0, 0, 50, 17.5)];
 	self.navigationItem.titleView = imgView;	
@@ -48,7 +48,7 @@ int counter = 1;
 	
     self.videoView.center = CGPointMake(self.videoView.center.x, self.videoView.center.y + 60);
     
-    scrollView.contentSize = CGSizeMake(self.videoView.frame.size.width, 3700.0);
+    self.scrollView.contentSize = CGSizeMake(self.videoView.frame.size.width, 3700.0);
 
     [self createInterface];
 }
@@ -77,16 +77,18 @@ int counter = 1;
 
 - (void)recreateInterface
 {    
-    self.videoView = [[UIView alloc] init];
+    self.videoView = [[UIView alloc] init];	
+    self.videoView.frame = CGRectMake(0, 60.0, 320.0, 460.0);
 	
-//    self.videoView.frame = CGRectMake(0, 124, self.videoView.frame.size.width, self.videoView.frame.size.height);
-//	
-//    scrollView.contentSize = CGSizeMake(self.videoView.frame.size.width, 3700.0);
+    self.scrollView = [[UIScrollView alloc] init];
+    self.scrollView.frame = CGRectMake(0, 0.0, 320.0, 355.0);
+    self.scrollView.contentSize = CGSizeMake(self.videoView.frame.size.width, 3700.0);
+    self.scrollView.delegate = self;
 
-    self.videoView.center = CGPointMake(self.videoView.center.x, self.videoView.center.y + 60);    
+    //self.videoView.center = CGPointMake(self.videoView.center.x, self.videoView.center.y + 60);    
     
-    [self.view addSubview:self.videoView];
-    [self.view addSubview:scrollView];    
+//    [self.view addSubview:self.videoView];
+    [self.videoView addSubview:self.scrollView];
     
     [self createInterface];
 }
@@ -105,7 +107,6 @@ int counter = 1;
 	overlayBGImageView = [[UIImageView alloc] initWithImage:overlayBGImage];
 	overlayBGImageView.frame = CGRectMake(0, 0, 320, 480);
 	overlayBGImageView.center = CGPointMake(self.view.frame.size.width * 0.5, self.view.frame.size.height * 0.5 + 10);
-	[overlayBGImage release];
 	[overlayView addSubview:overlayBGImageView];
     
 	TEDAppDelegate *appdelegate = (TEDAppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -167,7 +168,6 @@ int counter = 1;
         
 		[[OpenNC getInstance] getImage:self callback:@selector(displayImage:) imageURL:imgURL context:contextDict];
         
-        [contextDict release];
 	}
 	
 	[self createTalkView:data];
@@ -188,7 +188,7 @@ int counter = 1;
 	heading.backgroundColor = [UIColor clearColor];
 	heading.text = titleText;
 	heading.numberOfLines = 0;
-	[scrollView addSubview:heading];
+	[self.scrollView addSubview:heading];
 	
 	[self.view addSubview:self.videoView];
 	self.videoView.alpha = 0.0;
@@ -218,7 +218,6 @@ int counter = 1;
 }
 
 - (void)displayImage:(NSDictionary *)image {
-	[image retain];
     
 	float overlayPointX = 10.0;
 	float overlayPointYMultiplier = counter;
@@ -243,16 +242,14 @@ int counter = 1;
 	[videoButton setBackgroundImage:fullImage forState:UIControlStateNormal];
     videoButton.tag = counter;
 	[videoButton addTarget:self action:@selector(playVideo:) forControlEvents:UIControlEventTouchUpInside];
-	[scrollView addSubview:videoButton];
+	[self.scrollView addSubview:videoButton];
     
     UIImage *miniHeadingImage = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"miniHeading-bg" ofType:@"png"]];
 	UIImageView *miniHeadingImageView = [[UIImageView alloc] initWithImage:miniHeadingImage];
 	miniHeadingImageView.frame = CGRectMake(overlayPointX, 212 + (115.0 * overlayPointYMultiplier), 148.0, 30.0);
 
-	[scrollView addSubview:miniHeadingImageView];
+	[self.scrollView addSubview:miniHeadingImageView];
     
-    [miniHeadingImage release];
-    [miniHeadingImageView release];
     
 	UILabel *miniHeading = [[UILabel alloc] initWithFrame:CGRectMake(overlayPointX + 3, 212 + (115.0 * overlayPointYMultiplier), 142.0, 30.0)];
 	miniHeading.textAlignment = UITextAlignmentLeft;
@@ -261,24 +258,23 @@ int counter = 1;
 	miniHeading.backgroundColor = [UIColor clearColor];
 	miniHeading.text = (NSString *)[[image objectForKey:@"context"] objectForKey:@"subtitle"];
 	miniHeading.numberOfLines = 0;
-    [scrollView addSubview:miniHeading];
+    [self.scrollView addSubview:miniHeading];
     
     
     [dataArray addObject:[image objectForKey:@"context"]];
 	
 	counter ++;
     
-	[image release];
 }
 
-- (void)displayMainImage:(NSDictionary *)image {
-	[image retain];
-
+- (void)displayMainImage:(NSDictionary *)image 
+{
+    NSLog(@"display main image: %@", image);
+    
 	UIImage *fullImage = [image objectForKey:@"image"];
 	
 	[featuredTalk setBackgroundImage:fullImage forState:UIControlStateNormal];
 	
-	[image release];
 }
 
 - (IBAction)featuredTalk:(id)sender
@@ -287,7 +283,6 @@ int counter = 1;
     
     selectedView.selectedData = initialMovieDictionary;
 	[self.navigationController pushViewController:selectedView animated:YES];
-	[selectedView release];    
 }
 
 - (void)playVideo:(id)sender
@@ -302,19 +297,19 @@ int counter = 1;
     SelectedViewController *selectedView = [[SelectedViewController alloc] initWithNibName:@"SelectedViewController" bundle:[NSBundle mainBundle]];
     selectedView.selectedData = contextDictionary;
 	[self.navigationController pushViewController:selectedView animated:YES];
-	[selectedView release];
 }
 
 - (void)resetViewController
 {
-    NSLog(@"self.videoView count: %d", [self.videoView retainCount]);
+//    NSLog(@"self.videoView count: %d", [self.videoView retainCount]);
     counter = 1;
     
-    [scrollView removeFromSuperview];
+    [self.scrollView removeFromSuperview];
     [self.videoView removeFromSuperview];
     
 //    [self.videoView release];
-//    self.videoView = nil;
+    self.scrollView = nil;
+    self.videoView = nil;
 }
 
  // Override to allow orientations other than the default portrait orientation.
@@ -339,16 +334,8 @@ int counter = 1;
 
 
 - (void)dealloc {
-    [super dealloc];
     
-    [overlayView release]; 
-    [self.videoView release];
-    [overlayBGImageView release]; 
-    [loadingView release];
-    [featuredTalk release];
-    [mainMovie release]; 
-    [scrollView release];
-    [dataArray release];
+//    self.videoView;
 
 }
 

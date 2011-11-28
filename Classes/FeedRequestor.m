@@ -13,18 +13,13 @@
 
 @synthesize item, itemContents, currentStringValue, itemElementInProgress; ;
 
-- (void)dealloc
-{
-	[super dealloc];
-}
 
 - (id)initForFeed:(NSObject *)caller callback:(SEL)callback{
 	if (self == [super init])
 	{
 		// Initialization code
 		requestor = caller;
-		if (requestor)
-			[requestor retain];  //Retain the requestor in case it gets popped off while being retrieved (or go 'boom').
+		  //Retain the requestor in case it gets popped off while being retrieved (or go 'boom').
 		requestorCallback = callback;
 		
 	}
@@ -46,7 +41,7 @@
 	NSString *strURL = [NSString stringWithFormat:@"http://feeds.feedburner.com/tedtalks_video"];
 	NSURL *sourceURL = [NSURL URLWithString:strURL];
 	
-	NSMutableURLRequest *request = [[[NSMutableURLRequest alloc] init] autorelease]; 
+	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init]; 
 	[request setURL:sourceURL]; 
 	[request setHTTPMethod:@"GET"]; 
 	
@@ -63,8 +58,6 @@
 		
 		BOOL success;
 		//NSURL *xmlURL = [NSURL fileURLWithPath:pathToFile];
-		if (addressParser) // addressParser is an NSXMLParser instance variable
-			[addressParser release];
 		addressParser = [[NSXMLParser alloc] initWithData:receivedData];
 		[addressParser setDelegate:self];
 		[addressParser setShouldResolveExternalEntities:YES];
@@ -93,9 +86,7 @@
 	//Send data back to the caller
 	if (requestor != nil){
 		[requestor performSelectorOnMainThread:requestorCallback withObject:item waitUntilDone:YES];
-		[requestor release];
 	}
-	[dicResponse release];
 }
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict 
@@ -144,7 +135,6 @@
     if ( [elementName isEqualToString:@"item"] ) {
 		[self setItemElementInProgress:NO];
 		[item addObject:itemContents];
-		[itemContents release];
 		itemContents = nil;
 	}
 	
@@ -171,7 +161,6 @@
 		}		
 		
 		// currentStringValue is an instance variable		
-		[currentStringValue release];
 		currentStringValue = nil;
 	}
 

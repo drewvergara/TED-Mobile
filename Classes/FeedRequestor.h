@@ -20,9 +20,9 @@
 	NSMutableString *currentStringValue;
 }
 @property BOOL itemElementInProgress;
-@property (nonatomic, retain) NSMutableArray *item;
-@property (nonatomic, retain) NSMutableDictionary *itemContents;
-@property (nonatomic, retain) NSMutableString *currentStringValue;
+@property (nonatomic, strong) NSMutableArray *item;
+@property (nonatomic, strong) NSMutableDictionary *itemContents;
+@property (nonatomic, strong) NSMutableString *currentStringValue;
 
 - (id)initForFeed:(NSObject *)caller callback:(SEL)callback;
 
