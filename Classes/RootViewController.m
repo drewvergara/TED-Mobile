@@ -25,8 +25,6 @@ int counter = 1;
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    NSLog(@"root view did load");
-
 	TEDAppDelegate *appdelegate = (TEDAppDelegate *)[[UIApplication sharedApplication] delegate];
 	[appdelegate saveRootViewControllerHolder:self];
         
@@ -44,9 +42,9 @@ int counter = 1;
 
 //    self.videoView = [[UIView alloc] init];
     
-//	self.videoView.frame = CGRectMake(0, 60, self.videoView.frame.size.width, self.videoView.frame.size.height);
+	self.videoView.frame = CGRectMake(0, 60, 320.0, 460.0);
 	
-    self.videoView.center = CGPointMake(self.videoView.center.x, self.videoView.center.y + 60);
+//    self.videoView.center = CGPointMake(self.videoView.center.x, self.videoView.center.y + 60);
     
     self.scrollView.contentSize = CGSizeMake(self.videoView.frame.size.width, 3700.0);
 
@@ -77,15 +75,15 @@ int counter = 1;
 
 - (void)recreateInterface
 {    
-    self.videoView = [[UIView alloc] init];	
+//    self.videoView = [[UIView alloc] init];	
     self.videoView.frame = CGRectMake(0, 60.0, 320.0, 460.0);
 	
-    self.scrollView = [[UIScrollView alloc] init];
+//    self.scrollView = [[UIScrollView alloc] init];
     self.scrollView.frame = CGRectMake(0, 0.0, 320.0, 355.0);
     self.scrollView.contentSize = CGSizeMake(self.videoView.frame.size.width, 3700.0);
     self.scrollView.delegate = self;
 
-    //self.videoView.center = CGPointMake(self.videoView.center.x, self.videoView.center.y + 60);    
+//    self.videoView.center = CGPointMake(self.videoView.center.x, self.videoView.center.y + 60);    
     
 //    [self.view addSubview:self.videoView];
     [self.videoView addSubview:self.scrollView];
@@ -134,7 +132,7 @@ int counter = 1;
 
 - (void)showResults:(NSArray *)data
 {
-    [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(removeOverlay) userInfo:nil repeats:NO];
+    [NSTimer scheduledTimerWithTimeInterval:1.5 target:self selector:@selector(removeOverlay) userInfo:nil repeats:NO];
     
 //	NSLog(@"connection ended");
 //	NSLog(@"%@", data);
@@ -181,7 +179,7 @@ int counter = 1;
     mainMovie = (NSString *)[dataDic1 objectForKey:@"videoURL"];
 	[[OpenNC getInstance] getImage:self callback:@selector(displayMainImage:) imageURL:imgURL1 context:nil];
 	
-	UILabel *heading = [[UILabel alloc] initWithFrame:CGRectMake(15, 182, 290, 50)];
+	heading = [[UILabel alloc] initWithFrame:CGRectMake(15, 182, 290, 50)];
 	heading.textAlignment = UITextAlignmentLeft;
 	heading.textColor = [UIColor whiteColor];
 	heading.font = [UIFont boldSystemFontOfSize:14.0];
@@ -269,8 +267,6 @@ int counter = 1;
 
 - (void)displayMainImage:(NSDictionary *)image 
 {
-    NSLog(@"display main image: %@", image);
-    
 	UIImage *fullImage = [image objectForKey:@"image"];
 	
 	[featuredTalk setBackgroundImage:fullImage forState:UIControlStateNormal];
@@ -301,15 +297,10 @@ int counter = 1;
 
 - (void)resetViewController
 {
-//    NSLog(@"self.videoView count: %d", [self.videoView retainCount]);
     counter = 1;
     
     [self.scrollView removeFromSuperview];
-    [self.videoView removeFromSuperview];
-    
-//    [self.videoView release];
-    self.scrollView = nil;
-    self.videoView = nil;
+    [self.videoView removeFromSuperview];    
 }
 
  // Override to allow orientations other than the default portrait orientation.

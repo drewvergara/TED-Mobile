@@ -40,6 +40,6 @@
 	<key>UIStatusBarHidden</key>
 	<false/>
 	<key>UIApplicationExitsOnSuspend</key>
-	<false/>
+	<true/>
 </dict>
 </plist>

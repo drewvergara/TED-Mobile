@@ -28,7 +28,6 @@
 		35987C2513402FB9002AE7DE /* launch.png in Resources */ = {isa = PBXBuildFile; fileRef = 35987C2313402FB9002AE7DE /* launch.png */; };
 		35987C2613402FB9002AE7DE /* TED-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 35987C2413402FB9002AE7DE /* TED-logo.png */; };
 		35987C3213404B63002AE7DE /* loading-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 35987C3113404B63002AE7DE /* loading-bg.png */; };
-		359C622A14837C9700321BB3 /* VideoListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 359C622914837C9700321BB3 /* VideoListViewController.m */; };
 		35E55E4A1321D812009C228F /* OpenNC.m in Sources */ = {isa = PBXBuildFile; fileRef = 35E55E491321D812009C228F /* OpenNC.m */; };
 		35E68ACA13DD1438006A48C8 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 35E68AC913DD1438006A48C8 /* Reachability.m */; };
 		35E68ACD13DD1584006A48C8 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35E68ACC13DD1584006A48C8 /* SystemConfiguration.framework */; };
@@ -65,8 +64,6 @@
 		35987C2313402FB9002AE7DE /* launch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launch.png; sourceTree = "<group>"; };
 		35987C2413402FB9002AE7DE /* TED-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TED-logo.png"; sourceTree = "<group>"; };
 		35987C3113404B63002AE7DE /* loading-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "loading-bg.png"; sourceTree = "<group>"; };
-		359C622814837C9700321BB3 /* VideoListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoListViewController.h; sourceTree = "<group>"; };
-		359C622914837C9700321BB3 /* VideoListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoListViewController.m; sourceTree = "<group>"; };
 		35E55E481321D812009C228F /* OpenNC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OpenNC.h; path = Classes/OpenNC.h; sourceTree = SOURCE_ROOT; };
 		35E55E491321D812009C228F /* OpenNC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OpenNC.m; path = Classes/OpenNC.m; sourceTree = SOURCE_ROOT; };
 		35E68AC813DD1438006A48C8 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
@@ -183,18 +180,8 @@
 				28C286DF0D94DF7D0034E888 /* RootViewController.h */,
 				28C286E00D94DF7D0034E888 /* RootViewController.m */,
 				28F335F01007B36200424DE2 /* RootViewController.xib */,
-				359C622714837C5C00321BB3 /* VideoListViewController */,
 			);
 			name = "Root View Controller";
-			sourceTree = "<group>";
-		};
-		359C622714837C5C00321BB3 /* VideoListViewController */ = {
-			isa = PBXGroup;
-			children = (
-				359C622814837C9700321BB3 /* VideoListViewController.h */,
-				359C622914837C9700321BB3 /* VideoListViewController.m */,
-			);
-			name = VideoListViewController;
 			sourceTree = "<group>";
 		};
 		35E55E3D1321D7F7009C228F /* OpenNC */ = {
@@ -315,7 +302,6 @@
 				353065AB1321DA9A00CC6332 /* ImageRequestor.m in Sources */,
 				A200D44F136872A80071929C /* SelectedViewController.m in Sources */,
 				35E68ACA13DD1438006A48C8 /* Reachability.m in Sources */,
-				359C622A14837C9700321BB3 /* VideoListViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

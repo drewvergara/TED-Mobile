@@ -23,7 +23,7 @@
     if(internetStatus != ReachableViaWiFi) {
         return NO;
     }
-	return NO;
+	return YES;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil

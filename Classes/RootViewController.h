@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "VideoListViewController.h"
 
-@interface RootViewController : UIViewController <UIScrollViewDelegate, VideoListViewDelegate>{
+@interface RootViewController : UIViewController <UIScrollViewDelegate>{
 	IBOutlet UIView *overlayView;
 	IBOutlet UIView *videoView;
 	IBOutlet UIView *loadingView;
@@ -17,6 +16,7 @@
 	UIImageView *overlayBGImageView;
 
 	IBOutlet UIButton *featuredTalk;
+    UILabel *heading;
     
     IBOutlet UIScrollView *scrollView;
     
