@@ -49,7 +49,7 @@
      */
     
     
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self.navigationController popToRootViewControllerAnimated:NO];
     [self.rootViewControllerHolder resetViewController];
 }
 

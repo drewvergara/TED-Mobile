@@ -75,18 +75,25 @@ int counter = 1;
 
 - (void)recreateInterface
 {    
-//    self.videoView = [[UIView alloc] init];	
     self.videoView.frame = CGRectMake(0, 60.0, 320.0, 460.0);
 	
-//    self.scrollView = [[UIScrollView alloc] init];
     self.scrollView.frame = CGRectMake(0, 0.0, 320.0, 355.0);
     self.scrollView.contentSize = CGSizeMake(self.videoView.frame.size.width, 3700.0);
     self.scrollView.delegate = self;
 
-//    self.videoView.center = CGPointMake(self.videoView.center.x, self.videoView.center.y + 60);    
+    // Insert Updating Talks pop over
+    self.loadingView.center = CGPointMake(160, 226);
+    [self.view addSubview:self.loadingView];
     
-//    [self.view addSubview:self.videoView];
-    [self.videoView addSubview:self.scrollView];
+    self.loadingView.alpha = 0.0;
+    
+    [UIView beginAnimations:@"updatingPopover" context:nil];
+    [UIView setAnimationDuration:0.3];
+    [UIView setAnimationDelegate:self];
+    self.loadingView.transform = CGAffineTransformMakeTranslation(0, -20.0);
+    self.loadingView.alpha = 1.0;
+    [UIView commitAnimations];     
+    
     
     [self createInterface];
 }
@@ -123,7 +130,8 @@ int counter = 1;
 	//[UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
 	
 	self.videoView.alpha = 1.0;
-	
+    self.loadingView.alpha = 0.0;
+    self.loadingView.transform = CGAffineTransformMakeTranslation(0, 0.0);	
 	[UIView commitAnimations];
 	
 	[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:YES];
@@ -270,7 +278,9 @@ int counter = 1;
 	UIImage *fullImage = [image objectForKey:@"image"];
 	
 	[featuredTalk setBackgroundImage:fullImage forState:UIControlStateNormal];
-	
+
+	NSLog(@"featuredTalk index: %d", [[self.scrollView subviews] indexOfObject:featuredTalk]);
+	NSLog(@"heading index: %d", [[self.scrollView subviews] indexOfObject:heading]);    
 }
 
 - (IBAction)featuredTalk:(id)sender
@@ -298,11 +308,23 @@ int counter = 1;
 - (void)resetViewController
 {
     counter = 1;
-
     heading.text = @"";
     
-    [self.scrollView removeFromSuperview];
-    [self.videoView removeFromSuperview];    
+    for (int i = 4; i < [[self.scrollView subviews] count]; i++) {
+        [[[self.scrollView subviews] objectAtIndex:i] removeFromSuperview];
+    }
+        
+
+    
+//    [self.scrollView removeFromSuperview];
+    [self.videoView removeFromSuperview];
+}
+
+- (void)animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
+{
+    if ([animationID isEqualToString:@"removeOverlay"]) {
+        [self.loadingView removeFromSuperview];
+    }
 }
 
  // Override to allow orientations other than the default portrait orientation.
