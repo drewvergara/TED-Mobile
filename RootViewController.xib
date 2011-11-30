@@ -48,7 +48,6 @@
 						<string key="NSFrameSize">{320, 480}</string>
 						<reference key="NSSuperview" ref="953494857"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<object class="NSCustomResource" key="IBUIImage">
@@ -81,7 +80,6 @@
 						<string key="NSFrame">{{142, 319}, {37, 37}}</string>
 						<reference key="NSSuperview" ref="732259095"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<bool key="IBUIHidesWhenStopped">NO</bool>
@@ -150,7 +148,6 @@
 								<string key="NSFrame">{{10, 185}, {300, 50}}</string>
 								<reference key="NSSuperview" ref="187746325"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<object class="NSCustomResource" key="IBUIImage">
@@ -197,7 +194,7 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<object class="NSCustomResource" key="IBUIImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">loading-bg.png</string>
+							<string key="NSResourceName">updating-bg.png</string>
 						</object>
 					</object>
 					<object class="IBUIActivityIndicatorView" id="698688566">
@@ -206,7 +203,6 @@
 						<string key="NSFrame">{{122, 71}, {37, 37}}</string>
 						<reference key="NSSuperview" ref="6627778"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<bool key="IBUIAnimating">YES</bool>
@@ -535,7 +531,7 @@
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<string>TED-bg.png</string>
 				<string>featured-talk-bg.png</string>
-				<string>loading-bg.png</string>
+				<string>updating-bg.png</string>
 			</object>
 			<object class="NSMutableArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>

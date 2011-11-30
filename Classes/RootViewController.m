@@ -51,27 +51,12 @@ int counter = 1;
     [self createInterface];
 }
 
-/*
- - (void)viewWillAppear:(BOOL)animated {
- [super viewWillAppear:animated];
- }
- */
-
-/*
- - (void)viewDidAppear:(BOOL)animated {
- [super viewDidAppear:animated];
- }
- */
-/*
- - (void)viewWillDisappear:(BOOL)animated {
- [super viewWillDisappear:animated];
- }
- */
-/*
- - (void)viewDidDisappear:(BOOL)animated {
- [super viewDidDisappear:animated];
- }
- */
+ - (void)viewDidAppear:(BOOL)animated 
+{
+    [super viewDidAppear:animated];
+    
+    NSLog(@"view did appear");
+}
 
 - (void)recreateInterface
 {    
@@ -80,7 +65,8 @@ int counter = 1;
     self.scrollView.frame = CGRectMake(0, 0.0, 320.0, 355.0);
     self.scrollView.contentSize = CGSizeMake(self.videoView.frame.size.width, 3700.0);
     self.scrollView.delegate = self;
-
+    self.scrollView.showsVerticalScrollIndicator = YES;
+    
     // Insert Updating Talks pop over
     self.loadingView.center = CGPointMake(160, 226);
     [self.view addSubview:self.loadingView];
@@ -94,6 +80,7 @@ int counter = 1;
     self.loadingView.alpha = 1.0;
     [UIView commitAnimations];     
     
+//    [self.videoView addSubview:self.scrollView];
     
     [self createInterface];
 }
@@ -311,10 +298,12 @@ int counter = 1;
     heading.text = @"";
     
     for (int i = 4; i < [[self.scrollView subviews] count]; i++) {
-        [[[self.scrollView subviews] objectAtIndex:i] removeFromSuperview];
+        if (![[[self.scrollView subviews] objectAtIndex:i] isKindOfClass:[UIImageView class]]) {
+            [[[self.scrollView subviews] objectAtIndex:i] removeFromSuperview];            
+        }
+
     }
         
-
     
 //    [self.scrollView removeFromSuperview];
     [self.videoView removeFromSuperview];
