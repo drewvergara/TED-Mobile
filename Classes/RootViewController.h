@@ -13,8 +13,12 @@
 	IBOutlet UIView *videoView;
 	IBOutlet UIView *loadingView;
     
+    IBOutlet UIActivityIndicatorView *activityIndicator;
+    
 	UIImageView *overlayBGImageView;
 
+    IBOutlet UIImageView *featuredTalkBg;
+    
 	IBOutlet UIButton *featuredTalk;
     UILabel *heading;
     
@@ -28,7 +32,9 @@
 @property (nonatomic, strong) IBOutlet UIView *overlayView; 
 @property (nonatomic, strong) IBOutlet UIView *videoView;
 @property (nonatomic, strong) IBOutlet UIView *loadingView;
+@property (nonatomic, strong) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, strong) UIImageView *overlayBGImageView;
+@property (nonatomic, strong) IBOutlet UIImageView *featuredTalkBg;
 @property (nonatomic, strong) IBOutlet UIButton *featuredTalk;
 @property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, strong) NSMutableArray *dataArray;

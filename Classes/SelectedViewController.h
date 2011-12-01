@@ -20,7 +20,7 @@
 
     IBOutlet UIActivityIndicatorView *activityIndicator;
     IBOutlet UIButton *talkBtn;
-    IBOutlet UIButton *playBtn;
+    IBOutlet UIButton *playBtn;    
     IBOutlet UIImageView *selectedTalkBtn;
     IBOutlet UIImageView *selectedTalkBg;
     IBOutlet UITextView *selectedTalkDescription;

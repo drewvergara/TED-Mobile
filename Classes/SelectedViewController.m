@@ -49,6 +49,7 @@
     
     playBtn.alpha = 0.0;
     playBtn.hidden = YES;
+    selectedTalkBg.alpha = 0.0;
     selectedTalkBg.hidden = YES;
     selectedTalkDescription.text = [selectedData objectForKey:@"description"];
     
@@ -77,7 +78,7 @@
 	UIImage *fullImage = [image objectForKey:@"image"];
 
 	[selectedTalkBtn setImage:fullImage];
-	
+    selectedTalkBtn.alpha = 0.0;
 
     UILabel *noToPlay = [[UILabel alloc] initWithFrame:CGRectMake(10, 12, 300, 20)];    
     
@@ -103,20 +104,10 @@
         
         UIImage *noPlayBtnImage = [UIImage imageNamed:@"noplay-btn.png"];
         [playBtn setImage:noPlayBtnImage forState:UIControlStateNormal];        
-    }
-
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:0.2];
-    [UIView setAnimationDelegate:self];
-    [UIView setAnimationDelay:0.2];
-    playBtn.transform = CGAffineTransformMakeTranslation(0, 10.0);
-    playBtn.alpha = 1.0;
-    noToPlay.alpha = 1.0;
-    [UIView commitAnimations];
-    
+    }    
     
     //Talk Subtitle
-	UILabel *heading = [[UILabel alloc] initWithFrame:CGRectMake(15, 182, 290, 50)];
+	UILabel *heading = [[UILabel alloc] initWithFrame:CGRectMake(18, 184, 286, 50)];
 	heading.textAlignment = UITextAlignmentLeft;
 	heading.textColor = [UIColor whiteColor];
 	heading.font = [UIFont boldSystemFontOfSize:14.0];
@@ -124,6 +115,19 @@
 	heading.text = [selectedData objectForKey:@"subtitle"];
 	heading.numberOfLines = 0;
 	[self.view addSubview:heading];
+    heading.alpha = 0.0;
+    
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.2];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDelay:0.2];
+    playBtn.transform = CGAffineTransformMakeTranslation(0, 10.0);
+    playBtn.alpha = 1.0;
+    noToPlay.alpha = 1.0;
+    heading.alpha = 1.0;
+    selectedTalkBtn.alpha = 1.0;
+    selectedTalkBg.alpha = 1.0;
+    [UIView commitAnimations];    
     
     activityIndicator.hidden = YES;
 }

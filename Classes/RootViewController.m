@@ -13,8 +13,8 @@
 
 @implementation RootViewController
 
-@synthesize overlayView, videoView, overlayBGImageView, loadingView;
-@synthesize featuredTalk;
+@synthesize overlayView, videoView, overlayBGImageView, loadingView, activityIndicator;
+@synthesize featuredTalk, featuredTalkBg;
 @synthesize mainMovie, scrollView;
 @synthesize dataArray, initialMovieDictionary;
 
@@ -39,23 +39,19 @@ int counter = 1;
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 
 	[self buildOverlay];
-
-//    self.videoView = [[UIView alloc] init];
     
-	self.videoView.frame = CGRectMake(0, 60, 320.0, 460.0);
-	
-//    self.videoView.center = CGPointMake(self.videoView.center.x, self.videoView.center.y + 60);
+	self.videoView.frame = CGRectMake(0, 56.0, 320.0, 480.0);
+	self.videoView.backgroundColor = [UIColor clearColor];
     
     self.scrollView.contentSize = CGSizeMake(self.videoView.frame.size.width, 3700.0);
-
+    self.scrollView.backgroundColor = [UIColor clearColor];
+    
     [self createInterface];
 }
 
  - (void)viewDidAppear:(BOOL)animated 
 {
     [super viewDidAppear:animated];
-    
-    NSLog(@"view did appear");
 }
 
 - (void)recreateInterface
@@ -87,6 +83,7 @@ int counter = 1;
 
 - (void)createInterface
 {
+    featuredTalkBg.alpha = 0.0;    
 	[[OpenNC getInstance] getFeed:self callback:@selector(showResults:) parameters:nil];
 }
 
@@ -174,7 +171,7 @@ int counter = 1;
     mainMovie = (NSString *)[dataDic1 objectForKey:@"videoURL"];
 	[[OpenNC getInstance] getImage:self callback:@selector(displayMainImage:) imageURL:imgURL1 context:nil];
 	
-	heading = [[UILabel alloc] initWithFrame:CGRectMake(15, 182, 290, 50)];
+	heading = [[UILabel alloc] initWithFrame:CGRectMake(18, 184, 286, 50)];
 	heading.textAlignment = UITextAlignmentLeft;
 	heading.textColor = [UIColor whiteColor];
 	heading.font = [UIFont boldSystemFontOfSize:14.0];
@@ -182,7 +179,7 @@ int counter = 1;
 	heading.text = titleText;
 	heading.numberOfLines = 0;
 	[self.scrollView addSubview:heading];
-	
+    
 	[self.view addSubview:self.videoView];
 	self.videoView.alpha = 0.0;
     
@@ -265,9 +262,21 @@ int counter = 1;
 	UIImage *fullImage = [image objectForKey:@"image"];
 	
 	[featuredTalk setBackgroundImage:fullImage forState:UIControlStateNormal];
-
-	NSLog(@"featuredTalk index: %d", [[self.scrollView subviews] indexOfObject:featuredTalk]);
-	NSLog(@"heading index: %d", [[self.scrollView subviews] indexOfObject:heading]);    
+    featuredTalk.alpha = 0.0;
+    
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.2];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDelay:0.2];
+    heading.alpha = 1.0;
+    featuredTalkBg.alpha = 1.0;
+    featuredTalk.alpha = 1.0;
+    activityIndicator.alpha = 0.0;
+    [UIView commitAnimations];    
+    
+    
+//	NSLog(@"featuredTalk index: %d", [[self.scrollView subviews] indexOfObject:featuredTalk]);
+//	NSLog(@"heading index: %d", [[self.scrollView subviews] indexOfObject:heading]);    
 }
 
 - (IBAction)featuredTalk:(id)sender
@@ -296,12 +305,13 @@ int counter = 1;
 {
     counter = 1;
     heading.text = @"";
+    [heading removeFromSuperview];
+    heading = nil;
     
-    for (int i = 4; i < [[self.scrollView subviews] count]; i++) {
+    for (int i = 5; i < [[self.scrollView subviews] count]; i++) {
         if (![[[self.scrollView subviews] objectAtIndex:i] isKindOfClass:[UIImageView class]]) {
-            [[[self.scrollView subviews] objectAtIndex:i] removeFromSuperview];            
+            [[[self.scrollView subviews] objectAtIndex:i] removeFromSuperview];
         }
-
     }
         
     
